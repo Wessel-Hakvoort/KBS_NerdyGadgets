@@ -94,7 +94,7 @@ if (isset($amount)) {
 
 
     function getVoorraadTekst($actueleVoorraad) {
-        if ($actueleVoorraad > 1000) {
+        if ($actueleVoorraad >= 1000) {
             return "Ruime voorraad beschikbaar.";
         } else {
             return "Voorraad: $actueleVoorraad";
@@ -119,7 +119,7 @@ if (isset($amount)) {
         foreach ($ReturnableResult as $row) {
             ?>
             <!--  coderegel 1 van User story: bekijken producten  -->
-
+            <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
 
 
             <!-- einde coderegel 1 van User story: bekijken producten   -->
@@ -147,7 +147,7 @@ if (isset($amount)) {
                 </div>
             <!--  coderegel 2 van User story: bekijken producten  -->
 
-
+            </a>
 
             <!--  einde coderegel 2 van User story: bekijken producten  -->
         <?php } ?>
