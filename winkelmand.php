@@ -83,13 +83,17 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h6> Inclusief BTW </h6>
             <?php print $StockItem['QuantityOnHand']; ?>
         </div>
-        <div id="StockItemHeader">
+        <div id="WinkelmandOverzicht2">
             <div class="CenterPriceLeft border p-2">
-                <h1>Overzicht</h1>
-                <h5 class="m-3">Aantal artikelen: <br> <?php //aantal artikelen berekenen?></h5>
-                <h5 class="m-3">Totaal prijs: <br> <?php //totaal prijs berekenen?></h5>
-                <h5 class="m-3">Verzend kosten: <BR> Altijd gratis!</h5>
-                <button class="btn btn-success"> Verder naar bestellen </button>
+                <h1 class="StockItemName">Overzicht</h1>
+				<br>
+                <h5 class="StockItemComments">Aantal artikelen: <br> "aantal"<?php //aantal artikelen berekenen?></h5>
+                <h5 class="StockItemComments">Totaal prijs: <br> "prijs"<?php //totaal prijs berekenen?></h5>
+                <h5 class="StockItemComments">Verzend kosten: <BR> Altijd gratis!</h5>
+				<br>
+				<br>
+				<br>
+                <button class="buttonNerd"> Verder naar bestellen </button>
             </div>
         </div>
     </div>
