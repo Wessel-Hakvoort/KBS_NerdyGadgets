@@ -72,16 +72,16 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <?php print $StockItem['StockItemName']; ?>
         </h2>
         <div class="QuantityText">
-            <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
-            </p>
+            <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
+            <div class="input-group inputGroup-sizing-sm mb-3" style="width: 150px">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon1"><i class="fa-solid fa-circle-minus" onclick="<?php $aantal = 1; $aantal--?>"></i></button>
+                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value=" 1<?php $aantal; //aantal wat in winkel wagen zit ?>">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-circle-plus" onclick="<?php $aantal++ ?>"></i></button>
+            </div>
+
+
             <h6> Inclusief BTW </h6>
             <?php print $StockItem['QuantityOnHand']; ?>
-
-        </div>
-        <div>
-            <i class="fa-solid fa-circle-minus"></i>
-            <input type="number" class="">
-            <i class="fa-solid fa-circle-plus"></i>
         </div>
         <div id="StockItemHeader">
             <div class="CenterPriceLeft border p-2">
