@@ -194,7 +194,15 @@ if (isset($amount)) {
     function berekenVerkoopPrijs($adviesPrijs, $btw) {
 		return $btw * $adviesPrijs / 100 + $adviesPrijs;
     }
+
+
+$cart = isset($_COOKIE["cart"]) ?$_COOKIE["cart"] :"[]";
+$cart = json_decode($cart)
+
 ?>
+
+
+
 
 <!-- code deel 3 van User story: Zoeken producten : de html -->
 <!-- de zoekbalk links op de pagina  -->
@@ -331,6 +339,9 @@ if (isset($amount)) {
         <?php
     }
     ?>
+</div>
+<div id="winkelmand">
+
 </div>
 
 <?php

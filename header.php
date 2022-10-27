@@ -15,6 +15,7 @@ $databaseConnection = connectToDatabase();
     <script src="Public/JS/bootstrap.min.js"></script>
     <script src="Public/JS/popper.min.js"></script>
     <script src="Public/JS/resizer.js"></script>
+    <script src="https://kit.fontawesome.com/58692e44a1.js" crossorigin="anonymous"></script>
 
     <!-- Style sheets-->
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
@@ -53,7 +54,7 @@ $databaseConnection = connectToDatabase();
                     <a href="browse.php" class="HrefDecoration"><i class="fa-solid fa-chart-user"></i> Winkelmand </a>
                 </li>
                 <li>
-                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
+                    <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken </a>
                 </li>
 
             </ul>
