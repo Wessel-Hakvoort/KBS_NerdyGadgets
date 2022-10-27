@@ -51,7 +51,7 @@ $databaseConnection = connectToDatabase();
 <!-- code voor US3: zoeken -->
             <ul id="ul-class-navigation">
                 <li>
-                    <a href="browse.php" class="HrefDecoration"><i class="fa-solid fa-chart-user"></i> Winkelmand </a>
+                    <a href="winkelmand.php" class="HrefDecoration"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </a>
                 </li>
                 <li>
                     <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken </a>
