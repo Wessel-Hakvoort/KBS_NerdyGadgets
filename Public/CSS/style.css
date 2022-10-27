@@ -1,11 +1,11 @@
 html {
-    background-color: rgb(35, 35, 47) !important;
+    background-color: #e6e6e6 !important;
 }
 
 body {
     overflow-x:hidden;
     color: #FFF !important;
-    background-color: rgb(35, 35, 47) !important;
+    background-color: e6e6e6 !important;
 }
 @font-face {
     font-family: MmrText;
@@ -77,11 +77,11 @@ ul#ul-class-navigation li {
 #Header {
     position: fixed;
     top:0;
-    background-color: rgb(35, 35, 47);
+    background-color: #086972;
     width: 100%;
     height: 200px;
     z-index: 1;
-    border-bottom: 1px solid rgb(36, 41, 143);
+    border-bottom: 4px solid #e6e6e6;
 }
 #Content {
     margin-top: 200px;
@@ -89,7 +89,7 @@ ul#ul-class-navigation li {
 #FilterFrame {
     position: fixed;
     width: 19%;
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: #086972;
     float: left;
     top:216px;
     border: 1px solid #fff;
@@ -109,7 +109,7 @@ ul#ul-class-navigation li {
     margin-top: 15px;
     position: relative;
     padding: 1px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 2px solid #053d42;
 }
 .ImgFrame {
     width: 230px;
@@ -147,7 +147,7 @@ ul#ul-class-navigation li {
     position: absolute;
     left: 250px;
     bottom: 2.5px;
-    color: white;
+    color: #053d42;
     font-size: 15px;
 }
 #VideoFrame {
@@ -172,6 +172,8 @@ ul#ul-class-navigation li {
     position: absolute;
     left: 310px;
     bottom: 0;
+	color: #053d42;
+    font-weight: bold;
 }
 #StockItemHeaderLeft {
     float: right;
@@ -180,6 +182,8 @@ ul#ul-class-navigation li {
     top: 0;
     right: 0;
     height: 300px;
+	color: #053d42;	
+    font-weight: bold;
 }
 
 .StockItemNameViewSize {
@@ -198,7 +202,7 @@ ul#ul-class-navigation li {
     transform: translateY(-50%);
 }
 #StockItemDescription {
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: #086972;
     width: 49%;
     float: left;
     padding: 10px;
@@ -208,7 +212,7 @@ ul#ul-class-navigation li {
     font-size: 20px;
 }
 #StockItemSpecifications {
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: #086972;
     width: 49%;
     float: left;
     padding: 10px;
@@ -225,7 +229,7 @@ ul#ul-class-navigation li {
     margin-right: 5px;
 }
 .Background {
-    background-color: #23232F;
+    background-color: #e6e6e6;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -237,8 +241,8 @@ ul#ul-class-navigation li {
 }
 #LogoImage {
     background-image: url("../ProductIMGHighRes/NerdyGadgetsLogo.png");
-    width: 250px;
-    height: 90px;
+    width: 300px;
+    height: 130px;
     margin: 55px 55px 55px 10%;
 }
 ul#ul-class li {
@@ -266,7 +270,7 @@ ul#ul-class-price li {
 }
 
 .HrefDecoration i.search {
-    color: #676EFF;
+    color: #e6e6e6;
 }
 
 .HrefDecoration:hover, .HrefDecoration:active {
@@ -274,7 +278,7 @@ ul#ul-class-price li {
     color: #ccc;
 }
 .TextMain {
-    color: #fff;
+    color: #053d42;
     font-family: vortice-concept, sans-serif;
     font-size: 50px;
     text-transform: uppercase;
@@ -283,7 +287,7 @@ ul#ul-class-price li {
     margin-left: 10%;
 }
 .HomePagePrice {
-    color: #676EFF;
+    color: #0b95a2;
     font-family: vortice-concept, sans-serif;
     font-size: 50px;
     text-transform: uppercase;
@@ -383,8 +387,8 @@ ul#ul-class-price li {
 }
 .StockItemPriceText {
     font-family: vortice-concept, sans-serif;
-    color: #676EFF;
-    font-size: 22px;
+    color: #053d42;
+    font-size: 30px;
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 25px;
@@ -393,24 +397,24 @@ ul#ul-class-price li {
     text-decoration: none;
 }
 .StockItemID {
-    font-family: vortice-concept, sans-serif;
-    color: #676EFF;
-    font-size: 10px;
+    font-family: pt-sans, sans-serif;
+    color: #053d42;
+    font-size: 15px;
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 15px;
 }
 .StockItemName {
     font-family: pt-sans, sans-serif;
-    color: #fff;
-    font-size: 20px;
+    color: #053d42;
+    font-size: 30px;
     text-transform: uppercase;
     font-weight: bold;
 }
 .StockItemComments {
     font-family: pt-sans, sans-serif;
-    color: #fff;
-    font-size: 14px;
+    color: #053d42;
+    font-size: 16px;
     font-weight: bold;
 }
 #CenteredContent {
@@ -453,7 +457,7 @@ ul#ul-class-price li {
     margin-top: 20px;
 }
 #ProductFrame h6 {
-    color: white;
+    color: #053d42;
 }
 #CategoriesBar {
     position: absolute;
@@ -467,14 +471,14 @@ ul#ul-class-price li {
     font-size: 18px;
     display: inline;
     font-weight: bold;
-    background-color: rgb(98, 158, 255);
+    background-color: #0fc1d1;
     padding: 15px 22px;
     border-radius: 50px;
 }
 .PageNumber {
     padding: 7px 15px;
     border-radius: 39px;
-    background: rgb(36, 41, 143);
+    background: #053d42;
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
