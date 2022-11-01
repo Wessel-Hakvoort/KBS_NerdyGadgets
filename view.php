@@ -5,6 +5,13 @@ include __DIR__ . "/header.php";
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
+
+<!--fixed reload van pagina met silent submission-->
+<script>
+    if (window.history.replaceState ) {
+        window.history.replaceState(null,null,window.location.href);
+    }
+</script>
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
@@ -83,6 +90,20 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
                         </p>
                         <h6> Inclusief BTW </h6>
+                        <form method="post">
+                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
+                            <input class="buttonNerd" type="submit" name="submit" value="Winkelmandje">
+                            <button >
+                                <a class="HrefDecoration"> Winkelmand </a>
+                            </button>
+                        </form>
+                        <?php
+                        if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+                            $stockItemID = $_POST["stockItemID"];
+                            addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                            $cart = getCart();
+                            print_r($cart);
+                        } ?>
                     </div>
                 </div>
             </div>
