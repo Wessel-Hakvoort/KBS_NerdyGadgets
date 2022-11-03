@@ -7,11 +7,7 @@ $cart = getCart();
 $StockItem = getStockItem($cart, $databaseConnection);
 $StockItemImage = getStockItemImage($cart, $databaseConnection);
 
-function sessiondestroy()
-{
-    session_destroy();
-    print("<script type='text/javascript'>alert('function session destroy');</script>");
-}
+
 ?>
 
 
@@ -27,14 +23,13 @@ function sessiondestroy()
 <div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
     <form>
         <div id="FilterOptions">
-            <h4 class="FilterTopMargin"> Aantal artikelen: <?php print count($cart) //totaal aantal items ?></h4>
+            <h4 class="FilterTopMargin"> Aantal artikelen: <?php print array_sum($cart) //totaal aantal items ?></h4>
             <br>
             <h4 class="FilterTopMargin"></i> Totaal prijs: <?php print isset($StockItem['SellPrice']);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h4>
             <br>
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
             <button class="buttonNerd"> Artikelen afrekenen </button>
-            <input type="submit" name="sessiondestroy" value="sessiondestroy" onclick="<?php session_destroy();?>" />
     </form>
 </div>
 </div>
@@ -47,20 +42,19 @@ function sessiondestroy()
     <div id="ArticleHeader">
         <br>
         <?php
-        print_r($cart);
-        //        if (array_values($cart) == array_values($cart) ){
-        //            $a = 0;
-        //            $a++;
-        //            print $a;
-        //        }else{
-        foreach ($cart as $key => $item) {
-            if (key($cart) == $key){
-                continue;
-            }
-
-            print_r($key);
-            print_r($item);
-            ?>
+//        print_r($cart);
+//        //        if (array_values($cart) == array_values($cart) ){
+//        //            $a = 0;
+//        //            $a++;
+//        //            print $a;
+//        //        }else{
+//        foreach ($cart as $key => $item) {
+//            if (key($cart) == $key){
+//                continue;
+//            }
+//            print_r($key);
+//            print_r($item);
+//            ?>
             <?php
             if (isset($StockItemImage)) {
                 // één plaatje laten zien
@@ -135,26 +129,29 @@ function sessiondestroy()
                     </form>
                     <!-- Laten zien wat het huidige aantal is -->
                     <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
-                           aria-describedby="button-addon1" value=" <?php print $item; //aantal wat in winkel wagen zit?>">
+                           aria-describedby="button-addon1" value=" <?php print array_sum($cart); //aantal wat in winkel wagen zit?>">
 
                     <!-- Form met post method om de hoeveelheid van een item te verhogen -->
                     <form method="post">
                         <input type="number" name="Increase" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
-                                    class="fa-solid fa-circle-plus"></i></button>
+                        <button class="btn btn-outline-secondary" type="submit"
+                                name="submitIncrease" id="button-addon2">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </button>
+                        <?php
+                        if (isset($_POST["submitIncrease"])) { // zelfafhandelend formulier
+                            $stockItemID = $_POST["submitIncrease"];
+                            addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                        } ?>
                     </form>
-                    <?php
-                    if (isset($_POST["submitIncrease"])) {              // zelfafhandelend formulier
-                        $stockItemID = $_POST["submitIncrease"];
-                        addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                    } ?>
+
                 </div>
 
 
                 <h6> Inclusief BTW </h6>
                 <?php print $StockItem['QuantityOnHand']; ?>
             </div>
-        <?php } ?>
+<!--        --><?php //} ?>
     </div>
     <div id="winkelmand">
 

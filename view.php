@@ -93,9 +93,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
                             <input class="buttonNerd" type="submit" name="submit" value="Winkelmandje">
-                            <button >
-                                <a class="HrefDecoration"> Winkelmand </a>
-                            </button>
+
                         </form>
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
