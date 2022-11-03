@@ -1,4 +1,4 @@
-<!-- dit bestand bevat alle code voor de pagina waar het winkelmandje te zien is -->
+<!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
 
@@ -7,16 +7,45 @@ $cart = getCart();
 $StockItem = getStockItem($cart, $databaseConnection);
 $StockItemImage = getStockItemImage($cart, $databaseConnection);
 
+function sessiondestroy()
+{
+    session_destroy();
+    print("<script type='text/javascript'>alert('function session destroy');</script>");
+}
 ?>
-<!--fixed reload van pagina met silent submission-->
+
+
+<!-- code deel 3 van User story: Zoeken producten : de html -->
+<!-- de zoekbalk links op de pagina  -->
+
 <script>
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
 </script>
 
-<div id="CenteredContent">
+<div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
+    <form>
+        <div id="FilterOptions">
+            <h4 class="FilterTopMargin"> Aantal artikelen: <?php print count($cart) //totaal aantal items ?></h4>
+            <br>
+            <h4 class="FilterTopMargin"></i> Totaal prijs: <?php print isset($StockItem['SellPrice']);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h4>
+            <br>
+            <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
+            <br>
+            <button class="buttonNerd"> Artikelen afrekenen </button>
+            <input type="submit" name="sessiondestroy" value="sessiondestroy" onclick="<?php session_destroy();?>" />
+    </form>
+</div>
+</div>
+
+<!-- einde zoekresultaten die links van de zoekbalk staan -->
+<!-- einde code deel 3 van User story: Zoeken producten  -->
+
+<div id="ResultsArea" class="Browse">
+    <br>
     <div id="ArticleHeader">
+        <br>
         <?php
         print_r($cart);
         //        if (array_values($cart) == array_values($cart) ){
@@ -126,21 +155,11 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                 <?php print $StockItem['QuantityOnHand']; ?>
             </div>
         <?php } ?>
-
-        <!-- Winkelmand informatie overzicht  -->
-        <div id="WinkelmandOverzicht2">
-            <div class="CenterPriceLeft border p-2">
-                <h1 class="StockItemName mb-5">Overzicht</h1>
-                <h5 class="StockItemComments">Aantal artikelen: <br> <?php print count($cart) //totaal aantal items ?></h5>
-                <h5 class="StockItemComments">Totaal prijs: <br> <?php print isset($StockItem['SellPrice']);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h5>
-                <h5 class="StockItemComments mb-5">Verzend kosten: <BR> Altijd gratis!</h5>
-                <button class="buttonNerd"> Verder naar bestellen</button>
-            </div>
-        </div>
     </div>
-</div>
+    <div id="winkelmand">
 
+    </div>
 
-<?php
-include __DIR__ . "/footer.php";
-?>
+    <?php
+    include __DIR__ . "/footer.php";
+    ?>
