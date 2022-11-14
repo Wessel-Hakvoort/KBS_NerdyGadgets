@@ -267,8 +267,6 @@ $cart = json_decode($cart)
             ?>
             <!--  coderegel 1 van User story: bekijken producten  -->
             <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
-
-
                 <!-- einde coderegel 1 van User story: bekijken producten   -->
                 <div id="ProductFrame">
                     <?php
@@ -278,8 +276,7 @@ $cart = json_decode($cart)
                     <?php } else if (isset($row['BackupImagePath'])) { ?>
                         <div class="ImgFrame"
                              style="background-image: url('<?php print "Public/StockGroupIMG/" . $row['BackupImagePath'] ?>'); background-size: cover;"></div>
-                    <?php }
-                    ?>
+                    <?php } ?>
 
                     <div id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
