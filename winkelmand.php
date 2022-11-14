@@ -1,7 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
-
+//session_destroy();
 $cart = getCart();
 
 $StockItem = getStockItem($cart, $databaseConnection);
@@ -35,15 +35,13 @@ function totaal_prijs($StockItem, $cart)
 <div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
     <form>
         <div id="FilterOptions">
-            <h4 class="FilterTopMargin"> Aantal artikelen: <?php print array_sum($cart) //totaal aantal items ?></h4>
+            <h4 class="FilterTopMargin"> Aantal artikelen: <?php print count($cart) //totaal aantal items ?></h4>
             <br>
-            <h4 class="FilterTopMargin"></i> Totaal
-                prijs: <?php print "€" . round(totaal_prijs($StockItem, $cart), 2);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h4>
+            <h4 class="FilterTopMargin"></i> Totaal prijs: <?php print isset($StockItem['SellPrice']);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h4>
             <br>
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
-            <button class="buttonNerd"> Artikelen afrekenen</button>
-            <?php print_r($cart); ?>
+            <button class="buttonNerd"> Artikelen afrekenen </button>
     </form>
 </div>
 </div>
