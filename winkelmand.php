@@ -38,22 +38,22 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 
 <!-- einde zoekresultaten die links van de zoekbalk staan -->
 <!-- einde code deel 3 van User story: Zoeken producten  -->
-<div style="margin-left: 21%;">
-<?php
-$i =0;
-foreach ($cart
+<div style="margin-left: 21%; width: 78%;">
+    <?php
+    $i = 0;
+    foreach ($cart
 
-as $key => $value) {
-if ($key == "") {
-    continue;
-} else {
-    $naam = getStockItem($key, $databaseConnection);
-    $i++;
-}
-?>
-<div id="ResultsAreaWinkelmandje" class="Browse">
-    <br>
-    <div id="ArticleHeader">
+             as $key => $value) {
+    if ($key == "") {
+        continue;
+    } else {
+        $naam = getStockItem($key, $databaseConnection);
+        $i++;
+    }
+    ?>
+    <div id="ResultsAreaWinkelmandje" class="Browse">
+        <br>
+        <div id="ArticleHeader">
             <?php
             $foto = getStockItemImage($key, $databaseConnection);
             if (isset($foto)) {
@@ -143,10 +143,10 @@ if ($key == "") {
                     <?php print $naam['QuantityOnHand']; ?>
                 </div>
             </div>
-    </div>
+        </div>
         <?php } ?>
-
-</div>
+        <br>
+    </div>
     <?php
     include __DIR__ . "/footer.php";
     ?>
