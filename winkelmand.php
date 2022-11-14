@@ -77,6 +77,7 @@ function totaal_prijs($StockItem, $cart)
                     }
                 }
                 ?>
+
                 <div>
                     <!-- Print het artikelnummer -->
                     <h1 class="StockItemID">Artikelnummer: <?php print $key; ?></h1>
