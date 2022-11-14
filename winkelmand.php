@@ -2,6 +2,7 @@
 <?php
 include __DIR__ . "/header.php";
 
+//session_destroy();
 $cart = getCart();
 
 $StockItem = getStockItem($cart, $databaseConnection);
@@ -56,7 +57,11 @@ function totaal_prijs($StockItem, $cart)
     <div id="ArticleHeader">
         <?php
         foreach ($cart as $key => $value) {
-            $naam = getStockItem($key, $databaseConnection);
+            if($key == "") {
+                continue;
+            } else {
+                $naam = getStockItem($key, $databaseConnection);
+            }
             ?>
             <div class="ListItem">
                 <?php
@@ -136,6 +141,7 @@ function totaal_prijs($StockItem, $cart)
                                 <?php
                                 if (isset($_POST["delete"])) { // zelfafhandelend formulier
                                     $stockItemID = $_POST["delete"]; //
+                                    removeProductFromCart($stockItemID);
                                     // maak gebruik van geïmporteerde functie uit Header.php
                                 } ?>
                             </form>
