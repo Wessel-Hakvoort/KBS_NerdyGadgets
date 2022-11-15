@@ -43,7 +43,7 @@ function totaal_prijs($StockItem, $cart)
             <br>
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
-            <button class="buttonNerd"> Artikelen afrekenen</button>
+            <button class="buttonNerd"> Verder naar bestellen </button>
             <?php print_r($cart); ?>
     </form>
 </div>
