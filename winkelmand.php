@@ -95,13 +95,6 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                                     id="button-addon1">
                                 <i class="fa-solid fa-circle-minus"></i>
                             </button>
-                            <?php
-                            if (isset($_POST["Decrease"])) { // zelfafhandelend formulier
-                                $stockItemID = $_POST["Decrease"];
-                                removeProductFromCart($stockItemID); // maak gebruik van geïmporteerde functie uit header.php
-                                print ' <meta http-equiv="refresh" content="0">';
-                            }
-                            ?>
                         </form>
                         <!-- Laten zien wat het huidige aantal is -->
                         <input type="text" class="form-control p-0" placeholder=""
@@ -116,12 +109,6 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                                     name="submitIncrease" id="button-addon2">
                                 <i class="fa-solid fa-circle-plus"></i>
                             </button>
-                            <?php
-                            if (isset($_POST["Increase"])) { // zelfafhandelend formulier
-                                $stockItemID = $_POST["Increase"];
-                                addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit Header.php
-                                print ' <meta http-equiv="refresh" content="0">';
-                            } ?>
                         </form>
                         <!-- Form met post method om de hoeveelheid van een item te verwijderen -->
                         <form method="post" class="pr-2">
@@ -131,12 +118,6 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                                     name="delete2" id="button-addon2">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-                            <?php
-                            if (isset($_POST["Delete"])) { // zelfafhandelend formulier
-                                $stockItemID = $_POST["Delete"]; //
-                                deleteProductFromCart($stockItemID); // maak gebruik van geïmporteerde functie uit Header.php
-                                print ' <meta http-equiv="refresh" content="0">';
-                            } ?>
                         </form>
                     </div>
                     <h6> Inclusief BTW </h6>
@@ -145,6 +126,28 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             </div>
         </div>
         <?php } ?>
+        <!-- Verlaagd het aantal in $cart -->
+        <?php
+        if (isset($_POST["Decrease"])) { // zelfafhandelend formulier
+            $stockItemID = $_POST["Decrease"];
+            removeProductFromCart($stockItemID); // maak gebruik van geïmporteerde functie uit header.php
+            print ' <meta http-equiv="refresh" content="0">';
+        }
+        ?>
+        <!-- Verhoogd het aantal in $cart -->
+        <?php
+        if (isset($_POST["Increase"])) { // zelfafhandelend formulier
+            $stockItemID = $_POST["Increase"];
+            addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit Header.php
+            print ' <meta http-equiv="refresh" content="0">';
+        } ?>
+        <!-- verwijderd het item uit $cart -->
+        <?php
+        if (isset($_POST["Delete"])) { // zelfafhandelend formulier
+            $stockItemID = $_POST["Delete"]; //
+            deleteProductFromCart($stockItemID); // maak gebruik van geïmporteerde functie uit Header.php
+            print ' <meta http-equiv="refresh" content="0">';
+        } ?>
         <br>
     </div>
     <?php
