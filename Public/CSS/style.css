@@ -114,6 +114,11 @@ ul#ul-class-navigation li {
     float: left;
     position: sticky;
 }
+#ResultsAreaWinkelmandje.Browse  {
+
+    float: left;
+    position: sticky;
+}
 #ProductFrame {
     width: 100%;
     height: 250px;
