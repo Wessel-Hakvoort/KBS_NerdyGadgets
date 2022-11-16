@@ -103,7 +103,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             }else {
                                 addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
                                 $cart = getCart();
-                                print "<p>Toegevoegd aan winkelwagen!</p>";
+                                print "<p>Toegevoegd aan winkelwagen! <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
                                 print_r($cart);
                             }
                         } ?>
