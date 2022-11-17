@@ -91,7 +91,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         <h6> Inclusief BTW </h6>
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
-                            <input class="buttonNerd" type="submit" name="submit" value="Winkelmandje">
+                            <input class="buttonNerd" type="submit" name="submit" value="In winkelmandje">
 
                         </form>
                         <?php
