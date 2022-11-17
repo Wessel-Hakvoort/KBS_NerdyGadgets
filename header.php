@@ -6,6 +6,8 @@ $databaseConnection = connectToDatabase();
 
 include __DIR__ . "/functionsWinkelmand.php";
 
+include __DIR__ . "/FunctionsBrowse.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -32,7 +32,6 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
             <button class="buttonNerd"> Verder naar bestellen </button>
-            <?php print_r($cart); ?>
     </form>
 </div>
 </div>
