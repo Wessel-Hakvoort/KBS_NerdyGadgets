@@ -36,7 +36,11 @@ function removeProductFromCart($stockItemID)
     $cart = getCart();                          // eerst de huidige cart ophalen
 
     if (array_key_exists($stockItemID, $cart)) {  //controleren of $stockItemID(=key!) al in array staat
-        $cart[$stockItemID] -= 1;                   //zo ja: aantal met 1 verlagen
+        if ($cart[$stockItemID] < 1){
+            // zorgt er voor dat aantallen niet in de min kunnen
+        }else{
+            $cart[$stockItemID] -= 1;                   //zo ja: aantal met 1 verlagen
+        }
     } else {
         $cart[$stockItemID] = 1;                    //zo nee: key toevoegen en aantal op 1 zetten.
     }
@@ -47,6 +51,7 @@ function removeProductFromCart($stockItemID)
 // functie zorgt er voor dat een item verwijderd wordt uit de sessie
 function deleteProductFromCart($stockItemID){
     $cart = getCart();
+    print $stockItemID;
     if (array_key_exists($stockItemID, $cart)) {
         unset($cart[$stockItemID]);
     }
@@ -61,7 +66,7 @@ function totaal_prijs($cart, $databaseConnection)
     foreach ($cart as $key => $value) {
         // Haalt Informatie van item op
         $StockItem = getStockItem($key, $databaseConnection);
-        //Veranderd tekst naar float
+        // Veranderd tekst naar float
         $StockItem_int = floatval($StockItem['SellPrice']);
         $totaal_prijs += $cart[$key] * $StockItem_int;
     }

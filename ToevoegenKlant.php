@@ -14,6 +14,8 @@ if (isset($_POST["toevoegen"])) {
 }
 ?>
 
+
+
 <h1>Klant toevoegen</h1><br><br>
 <form method="post">
 <!--    klantgegevens worden opgesomd en laten zien. Hier kan het ingevuld worden in de tekstschermpjes-->

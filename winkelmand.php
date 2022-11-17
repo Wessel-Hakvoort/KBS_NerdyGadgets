@@ -21,7 +21,7 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 <!--</script>-->
 
 <div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
-    <form>
+    <form action="bestellen.php">
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"> Aantal artikelen: <?php print array_sum($cart) //totaal aantal items ?></h4>
             <br>
@@ -32,7 +32,6 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
             <button class="buttonNerd"> Verder naar bestellen </button>
-            <?php print_r($cart); ?>
     </form>
 </div>
 </div>
