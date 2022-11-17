@@ -29,11 +29,25 @@ function toonKlantenOpHetScherm($klanten) {
         print("<td>".$klant["CustomerName"]."</td>");
         print("<td>".$klant["DeliveryAddressLine2"]."</td>");
         print("<td>".$klant["PostalAddressLine2"]."</td>");
-        print("<td><a href=\"BewerkenKlant.php?id=".$klant["CustomerID"]."\">Bewerk</a></td>");
-        print("<td><a href=\"VerwijderenKlant.php?id=".$klant["CustomerID"]."\">Verwijder</a></td>");
+        print("<td><a href=\"BeherenKlantgegevens.php?id=".$klant["CustomerID"]."\">Beheren klantgegevens</a></td>");
         print("</tr>");
     }
 }
+
+
+
+
+function toon1KlantOpHetScherm($klanten) {
+        print("<tr>");
+        print_r("<td>".$klanten["CustomerID"]."</td>");
+        print_r("<td>".$klanten["CustomerName"]."</td>");
+        print_r("<td>".$klanten["DeliveryAddressLine2"]."</td>");
+        print_r("<td>".$klanten["PostalAddressLine2"]."</td>");
+        print("<td><a href=\"klantfuncties.php".$klanten["CustomerID"]."\">Klantgegevens aanpassen</a></td>");
+        print("<td><a href=\"asd".$klanten["CustomerID"]."\">Verwijder klant</a></td>");
+        print("</tr>");
+}
+
 
 function klantGegevensToevoegen($gegevens) {
     $connection = maakVerbinding();
