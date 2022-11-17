@@ -1,5 +1,4 @@
 <?php
-
 //functie haalt de sessie inhoud op
 function getCart()
 {
@@ -55,13 +54,17 @@ function deleteProductFromCart($stockItemID){
 }
 
 // berekend de totaal prijs van het winkelmandje
-function totaal_prijs($StockItem, $cart)
+function totaal_prijs($cart, $databaseConnection)
 {
+    //init variable $totaal_prijs
     $totaal_prijs = 0;
-    foreach ($cart as $value) {
-        $key_int = array_sum($cart);
+    foreach ($cart as $key => $value) {
+        // Haalt Informatie van item op
+        $StockItem = getStockItem($key, $databaseConnection);
+        //Veranderd tekst naar float
         $StockItem_int = floatval($StockItem['SellPrice']);
-        $totaal_prijs = $key_int * $StockItem_int;
+        $totaal_prijs += $cart[$key] * $StockItem_int;
     }
-    return $totaal_prijs;
+
+    return round($totaal_prijs, 2);
 }

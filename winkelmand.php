@@ -26,7 +26,8 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <h4 class="FilterTopMargin"> Aantal artikelen: <?php print array_sum($cart) //totaal aantal items ?></h4>
             <br>
             <h4 class="FilterTopMargin"></i> Totaal
-                prijs: <?php print "€" . round(totaal_prijs($StockItem, $cart), 2);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?></h4>
+                prijs: <?php print "€" . totaal_prijs($cart, $databaseConnection);  //totaal prijs berekenen ** sprintf("€ %.2f", $StockItem['SellPrice']); ?>
+            </h4>
             <br>
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
@@ -41,9 +42,7 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 <div style="margin-left: 21%; width: 78%;">
     <?php
     $i = 0;
-    foreach ($cart
-
-             as $key => $value) {
+    foreach ($cart as $key => $value) {
     if ($key == "") {
         continue;
     } else {
@@ -74,16 +73,17 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             ?>
 
             <div>
-                <!-- Print het artikelnummer -->
-                <h1 class="StockItemID">Artikelnummer: <?php print $key; ?></h1>
+
                 <!-- Print de naam van het item -->
-                <h2 class="StockItemNameViewSize StockItemName">
+                <h2 class="StockItemNameViewSize StockItemName" style="width: 1500px">
                     <?php print $naam['StockItemName']; ?>
                 </h2>
                 <!-- Prijs, hoeveelheid en inclusief btw -->
                 <div class="QuantityText">
                     <!-- Print de per stuk prijs -->
-                    <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $naam['SellPrice']); ?></b>
+                    <p class="StockItemPriceText">
+                        <b><?php print sprintf("€ %.2f", $naam['SellPrice']); ?></b>
+                        <h6> Inclusief BTW </h6>
                     </p>
                     <!-- Verzorgd hoeveel items er in het winkelmandje zitten -->
                     <div class="input-group inputGroup-sizing-sm mb-3" style="width: 175px">
@@ -120,11 +120,10 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                             </button>
                         </form>
                     </div>
-                    <h6> Inclusief BTW </h6>
-                    <?php print $naam['QuantityOnHand']; ?>
                 </div>
             </div>
         </div>
+        <hr>
         <?php } ?>
         <!-- Verlaagd het aantal in $cart -->
         <?php
