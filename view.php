@@ -70,20 +70,19 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     </div>
                     <?php
                 }
-            } else {
+            } elseif(isset($StockItem['BackupImagePath'])) {
                 ?>
                 <div id="ImageFrame"
-                     style="background-image: url('Public/StockGroupIMG/<?php print $StockItem['BackupImagePath']; ?>'); background-size: cover;"></div>
+                     style="background-image: url(' <?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
                 <?php
             }
             ?>
-
 
             <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php print getVoorraadTekst($StockItem['QuantityOnHand']); ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
@@ -104,7 +103,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                                 addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
                                 $cart = getCart();
                                 print "<p>Toegevoegd aan winkelwagen! <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
-                                print_r($cart);
                             }
                         } ?>
                     </div>
