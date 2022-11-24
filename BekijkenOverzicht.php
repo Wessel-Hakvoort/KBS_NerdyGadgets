@@ -5,12 +5,12 @@
 <?php include 'klantfuncties.php';
 include __DIR__ . "/header.php";
 $klanten = alleKlantenOpvragen(); ?>
-<h1>Klanten overzicht</h1>
+<h1 style='color: #1b1e21'>Klanten overzicht</h1>
 <br>
 <p><a href="toevoegenklant.php">Nieuwe klant toevoegen</a></p>
 <table>
     <thead >
-    <tr><th>Nr</th><th>Naam</th><th>Straat en huisnummer</th><th>Woonplaats</th><th></th><th></th></tr>
+        <tr  style='color: #1b1e21'><th>Nr</th><th>Naam</th><th>Straat en huisnummer</th><th>Woonplaats</th><th></th><th></th></tr>
     </thead>
     <tbody>
     <?php toonKlantenOpHetScherm($klanten); ?>
