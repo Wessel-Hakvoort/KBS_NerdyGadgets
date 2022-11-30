@@ -3,7 +3,34 @@ include 'databasefuncties.php';
 
 $gegevens = array("CustomerID" => 0, "CustomerName" => "", "DeliveryAddressLine2" => "", "PostalAddressLine2" => "", "melding" => "");
 
+function getCustomerID()
+{
+    if (isset($_SESSION['CustomerID'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $id = $_SESSION['CustomerID'];                  //zo ja:  ophalen
+    } else {
+        $id = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+//    print $id;
+    return $id;                               // resulterend winkelmandje terug naar aanroeper functie
 
+}
+
+
+function saveCustomerID($id)
+{
+    print($id);
+    $_SESSION["CustomerID"] = $id;// werk de "gedeelde" $_SESSION["cart"] bij met de meegestuurde gegevens
+}
+
+
+function deleteCustomerID($id){
+    $item = getCustomerID();
+    print $id;
+    if (array_key_exists($id, $item)) {
+        unset($item[$id]);
+    }
+    saveCustomerID($item);
+}
 //functie voor opvragen alle klanten
 function alleKlantenOpvragen() {
     $connection = maakVerbinding();
@@ -14,9 +41,7 @@ function alleKlantenOpvragen() {
 
 //functie voor opvragen 1 klant
 function enkeleKlantOpvragen($id, $databaseConnection) {
-    $databaseConnection = maakVerbinding();
     $klant = selecteer1Klant($id, $databaseConnection);
-    sluitVerbinding($databaseConnection);
     return $klant;
 }
 
@@ -29,13 +54,20 @@ function toonKlantenOpHetScherm($klanten) {
         print("<td style='color: #1b1e21'>".$klant["CustomerName"]."</td>");
         print("<td style='color: #1b1e21'>".$klant["DeliveryAddressLine2"]."</td>");
         print("<td style='color: #1b1e21'>".$klant["PostalAddressLine2"]."</td>");
-        print("<td>
-                    <form method='post'> 
-                    <input type='number' name='idClient' value='".$klant["CustomerID"] ." ' hidden>
-                        <button class='btn btn-dark' type='submit' formaction='BeherenKlantgegevens.php'>Beheren klantgegevens</button>
-                    </form>
-              </td>");
+//        print("<td>
+//                    <form method='post'>
+//                    <input type='number' name='CustomerID' value='" ." ' hidden>
+//                        <button class='btn btn-dark' type='submit' formaction='BeherenKlantgegevens.php'>Beheren klantgegevens</button>
+//                    </form>
+//              </td>");
+
         print("</tr>");
+    }
+    print $_POST["CustomerID"];
+    if (isset($_POST["CustomerID"])) { // zelfafhandelend formulier
+        $id = $_POST["CustomerID"];
+        print $id;
+        saveCustomerID($id); // maak gebruik van geïmporteerde functie uit header.php
     }
 }
 
@@ -50,7 +82,7 @@ function toonKlantenOpHetScherm($klanten) {
 
 function toon1KlantOpHetScherm($klant) {
         print("<tr>");
-//        print($klant);
+        print("$klant");
         print("<td>".$klant["CustomerID"]."</td>");
         print_r("<td>".$klant["CustomerName"]."</td>");
         print_r("<td>".$klant["DeliveryAddressLine2"]."</td>");
