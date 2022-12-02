@@ -56,9 +56,9 @@ function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats) {
     return mysqli_stmt_affected_rows($statement) == 1;
 }
 
-function verwijderKlant($connection, $naam, $straatEnHuisnummer, $woonplaats) {
-    $statement = mysqli_prepare($connection, "DELETE FROM KLANT WHERE CustomerID = 1069");
-    mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
+function verwijderKlant($connection, $id) {
+    $statement = mysqli_prepare($connection, "DELETE FROM KLANT WHERE CustomerID = $id");
+//    mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }

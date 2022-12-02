@@ -44,6 +44,11 @@ $klant = enkeleKlantOpvragen($id, $databaseConnection);
     </tbody>
 </table>
 <br>
+<div>
+    <form method="post" >
+        <input type="submit"
+    </form>
+</div>
 
 <form method='post' action="BekijkenOverzicht.php">
     <input type='number' name='DeleteCustomerID' value="<?php print ($klant["CustomerID"]) ?>" hidden>
