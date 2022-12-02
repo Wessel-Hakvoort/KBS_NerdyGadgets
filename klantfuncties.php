@@ -10,7 +10,6 @@ function getCustomerID()
     } else {
         $id = array();                            //zo nee: dan een nieuwe (nog lege) array
     }
-//    print $id;
     return $id;                               // resulterend winkelmandje terug naar aanroeper functie
 
 }
@@ -58,7 +57,6 @@ function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats) {
 
 function verwijderKlant($connection, $id) {
     $statement = mysqli_prepare($connection, "DELETE FROM KLANT WHERE CustomerID = $id");
-//    mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }

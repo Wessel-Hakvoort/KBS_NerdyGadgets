@@ -58,9 +58,9 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <div class="StockItemName">
                 <h1>Gegevens:</h1><br>
                 <form method="post" action="bestelconfirm.php"><h3>
-                Naam: <input type="text" name="CustomerName"/><br>
-                Adres: <input type="text" name="DeliveryAddressLine2"/><br>
-                Woonplaats: <input type="text" name="PostalAddressLine2"/><br>
+                Naam: <input type="text" name="CustomerName" required/><br>
+                Adres: <input type="text" name="DeliveryAddressLine2" required/><br>
+                Woonplaats: <input type="text" name="PostalAddressLine2" required/><br>
                         <br><button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen" formmethod="post">Doorgaan naar betalen</button>
                     </h3>
                 </form>

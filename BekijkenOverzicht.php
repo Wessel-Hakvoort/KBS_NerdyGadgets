@@ -47,7 +47,7 @@ $klanten = alleKlantenOpvragen(); ?>
             <td>
             <form method='post' action="BeherenKlantgegevens.php">
                 <input type='number' name='CustomerID' value="<?php print ($klant["CustomerID"]) ?>" hidden>
-                <button  class='btn btn-dark' type='submit' name="buttonCustomerID">
+                <button  class='buttonNerd' type='submit' name="buttonCustomerID">
                     Beheren klantgegevens
                 </button>
             </form>

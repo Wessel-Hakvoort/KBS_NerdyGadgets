@@ -44,18 +44,31 @@ $klant = enkeleKlantOpvragen($id, $databaseConnection);
     </tbody>
 </table>
 <br>
-<div>
-    <form method="post" >
-        <input type="submit"
-    </form>
-</div>
+
+<?php
+    if(array_key_exists('button1', $_POST)) {
+        verwijderKlant($databaseConnection, $id);
+        $url = '/nerdygadgets/BekijkenOverzicht.php';
+        header("Location: $url");
+    }
+?>
+
+
+
+<form method="post" >
+    <button class='buttonNerd' type='submit' name="button1" value="Button1" formmethod="post">
+            Klant definitief verwijderen
+    </button>
+</form>
+
+
+<br>
 
 <form method='post' action="BekijkenOverzicht.php">
     <input type='number' name='DeleteCustomerID' value="<?php print ($klant["CustomerID"]) ?>" hidden>
-    <button class='btn btn-dark' type='submit'>
+    <button class='buttonNerd' type='submit'>
        Terug naar overzicht
     </button>
-</form>
 
    <!--knop voor terug naar overzicht-->
 
