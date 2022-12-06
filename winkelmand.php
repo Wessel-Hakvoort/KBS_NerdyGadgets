@@ -20,6 +20,10 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 <!--    }-->
 <!--</script>-->
 
+    <?php
+    if (array_sum($cart) > 0) {
+    ?>
+
 <div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
     <form action="bestellen.php">
         <div id="FilterOptions">
@@ -148,6 +152,18 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
         } ?>
         <br>
     </div>
+    <?php
+    } else {
+    ?>
+        <div class="StockItemName" style="text-align: center">
+            <br>
+            <br>
+            <br>
+            <h1>Uw winkelmand is leeg :(</h1>
+            <h3>klik <a href="browse.php">hier </a>om producten te zoeken</h3>
+            <br>
+        </div>
+    <?php }?>
     <?php
     include __DIR__ . "/footer.php";
     ?>

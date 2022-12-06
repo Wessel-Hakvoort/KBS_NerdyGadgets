@@ -58,12 +58,18 @@ include __DIR__ . "/FunctionsBrowse.php";
         </div>
         <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
+
             <li>
-                <a href="winkelmand.php" class="HrefDecoration"><i class="fa-solid fa-cart-shopping"></i> Winkelmand
-                </a>
+                <a style="padding-left:25px; font-size:25px;" href="BekijkenOverzicht.php" class="HrefDecoration" ><i class="fa-solid 	fas fa-user-cog"></i></a>
             </li>
             <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i>    Zoeken </a>
+                <a style="padding-left:25px; font-size:25px;" href="login.php" class="HrefDecoration"><i class="fa-solid fas fa-user-alt"></i></a>
+            </li>
+            <li>
+                <a style="padding-left:25px; font-size:25px;" href="winkelmand.php" class="HrefDecoration"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
+            <li>
+                <a style="padding-left:25px; padding-right:25px; font-size:25px;" href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i></a>
             </li>
 
         </ul>
