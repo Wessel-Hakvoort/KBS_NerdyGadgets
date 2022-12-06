@@ -14,7 +14,7 @@ if (isset($_POST["DeleteCustomerID"])) { // zelfafhandelend formulier
 
 if (isset($_POST["CustomerID"])) { // zelfafhandelend formulier
      $id = $_POST["CustomerID"];
-     saveCustomerID($id); // maak gebruik van geïmporteerde functie uit header.php
+     saveCustomerID($id); //Zet de id van de customer in een sessie
  }
 
 

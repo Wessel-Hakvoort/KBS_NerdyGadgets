@@ -40,9 +40,9 @@ function enkeleKlantOpvragen($id, $databaseConnection) {
 function klantGegevensToevoegen($gegevens) {
     $connection = maakVerbinding();
     if (voegKlantToe($connection, $gegevens["CustomerName"],$gegevens ["DeliveryAddressLine2"], $gegevens["PostalAddressLine2"]) == True) {
-        $gegevens["melding"] = "De klant is toegevoegd";
+        $gegevens["melding"] = "<td style='color: #1b1e21'>" . "De klant is toegevoegd";
     } else {
-        $gegevens["melding"] = "Het toevoegen is mislukt";
+        $gegevens["melding"] = "<td style='color: #1b1e21'>" . "Het toevoegen is mislukt";
     }
     sluitVerbinding($connection);
     return $gegevens;
@@ -67,9 +67,9 @@ function verwijderKlant($connection, $id) {
 function klantGegevensUpdaten($gegevens) {
     $connection = maakVerbinding();
     if (gegevensOpslaan($connection, $gegevens["CustomerID"], $gegevens["CustomerName"],$gegevens ["DeliveryAddressLine2"], $gegevens["PostalAddressLine2"]) == True) {
-        $gegevens["melding"] = "De klant is toegevoegd";
+        $gegevens["melding"] = "De gegevens zijn opgeslagen";
     } else {
-        $gegevens["melding"] = "Het toevoegen is mislukt";
+        $gegevens["melding"] = "Het opslaan is mislukt";
     }
     sluitVerbinding($connection);
     return $gegevens;
@@ -78,8 +78,8 @@ function klantGegevensUpdaten($gegevens) {
 
 
 function gegevensOpslaan($connection, $id, $naam, $straatEnHuisnummer, $woonplaats) {
-    $statement_gegevens = mysqli_prepare($connection, "UPDATE customers SET CustomerName = ?, DeliveryAddressLine2 = ?, PostalAddressLine2 = ? WHERE CustomerID=$id");
-    mysqli_stmt_bind_param($statement_gegevens, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
-    mysqli_stmt_execute($statement_gegevens);
-    return mysqli_stmt_affected_rows($statement_gegevens) == 1;
+    $statement = mysqli_prepare($connection, "UPDATE customers SET CustomerName = ?, DeliveryAddressLine2 = ?, PostalAddressLine2 = ? WHERE CustomerID=$id");
+    mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
+    mysqli_stmt_execute($statement);
+    return mysqli_stmt_affected_rows($statement) == 1;
 }
