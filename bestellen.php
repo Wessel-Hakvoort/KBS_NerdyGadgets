@@ -62,9 +62,6 @@ if (array_sum($cart) > 0) {
                 <form method="post" action="bestelconfirm.php">
                     <h3>
                         Naam: <input type="text" name="CustomerName" required/><br>
-                        Adres: <input type="text" name="DeliveryAddressLine2" required/><br>
-                        Woonplaats: <input type="text" name="PostalAddressLine2" required/><br>
-                        Naam: <input type="text" name="CustomerName" required/><br>
                         Mail: <input type="email" name="Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                      required/><br>
                         Telefoonnummer: <input type="tel" name="PhoneNumber" pattern="[0-9]{10}" required/><br>
