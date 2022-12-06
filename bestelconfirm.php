@@ -2,32 +2,31 @@
 <?php
 include __DIR__ . "/header.php";
 include 'klantfuncties.php';
-include 'orderfuncties.php';
-include 'databasefuncties.php';
 
-//session_destroy();
 $cart = getCart();
 
 $StockItem = getStockItem($cart, $databaseConnection);
 $StockItemImage = getStockItemImage($cart, $databaseConnection);
 
 ?>
-<?php
 
+<?php
+if (array_sum($cart) > 0) {
+    ?>
+
+<?php
 //VOEGT KLANT TOE AAN DATABASE
 if (isset($_POST["toevoegen"])) {
     $CustomerName = $_POST["CustomerName"];
     $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
     $gegevens["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
     $gegevens["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
-    $gegevens = klantGegevensToevoegen($gegevens);
-}
-//Selecteert het customerID van de ingevulde naam
-if (isset($_POST["toevoegen"])) {
-    $CustomerName = $_POST["CustomerName"];
-    $query = "SELECT CustomerID FROM klant WHERE CustomerName=$CustomerName";
-    $orders["CustomerID"] = $query;
-    $orders = voegOrderToe($orders);
+    $gegevens["Mail"] = isset($_POST["Mail"]) ? $_POST["Mail"] : "";
+    $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
+    $gegevens = klantGegevensOrderToevoegen($gegevens);
+    voegOrderToe($databaseConnection);
+    voegOrderLineToe($databaseConnection);
+    //mail($_POST["Mail"], "Bestelling", "Uw bestelling bij nerdygadgets is geplaatst! Uw bestelnummer is:" . LaatsteOrderNummer($databaseConnection));
 }
 
 ?>
@@ -36,11 +35,22 @@ if (isset($_POST["toevoegen"])) {
     <br>
     <br>
     <br>
-    <h1>Dankjewel voor je bestelling: <?php print $_POST["CustomerName"]; ?>
-    </h1>
+    <h1>Dankjewel voor je bestelling</h1>
+    <h2>Uw bestelnummer is: <?php LaatsteOrderNummer($databaseConnection)?></h2>
     <br>
 </div>
-
+    <?php
+    } else {
+    ?>
+        <div class="StockItemName" style="text-align: center">
+            <br>
+            <br>
+            <br>
+            <h1>Uw winkelmand is leeg :(</h1>
+            <h3>klik <a href="browse.php">hier </a>om producten te zoeken</h3>
+            <br>
+        </div>
+    <?php }?>
 <?php
 include __DIR__ . "/footer.php";
 ?>
