@@ -14,35 +14,34 @@ if (isset($_POST["CustomerID"])) { // zelfafhandelend formulier
     saveCustomerID($id);
 }
 
+
+
 $id = getCustomerID();
 $klant = enkeleKlantOpvragen($id, $databaseConnection);
+
+if (isset($_POST["opslaan"])) {
+    $klant["CustomerID"] = $id;
+    $klant["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
+    $klant["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
+    $klant["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
+    $klant = klantGegevensUpdaten($klant);
+}
 ?>
 
 <h1 style='color: #1b1e21'>Klantgegevens bewerken of verwijderen</h1>
-<table>
-    <thead>
-    <tr style='color: #1b1e21'>
-        <th>Nr</th>
-        <th>Naam</th>
-        <th>Straat en huisnummer</th>
-        <th>Woonplaats</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <?php
-    print("<tr>");
-    print("<td style='color: #1b1e21'>".$klant["CustomerID"]."</td>");
-    print("<td style='color: #1b1e21'>".$klant["CustomerName"]."</td>");
-    print("<td style='color: #1b1e21'>".$klant["DeliveryAddressLine2"]."</td>");
-    print("<td style='color: #1b1e21'>".$klant["PostalAddressLine2"]."</td>");
-    print("</tr>");
-    ?>
-
-    </tbody>
-</table>
+<label style='color: #1b1e21'>Klantnummer:</label>
+<?php print("<td style='color: #1b1e21'>" . $klant["CustomerID"] . "</td>"); ?>
+<br>
+<label style='color: #1b1e21'>Naam</label>
+<input type="text" name="CustomerName" value="<?php print($klant["CustomerName"]); ?>" required />
+<br>
+<label style='color: #1b1e21'><td style='color: #1b1e21'></td>Straat en huisnummer</label>
+<input type="text" name="DeliveryAddressLine2" value="<?php print($klant["DeliveryAddressLine2"]); ?>" required />
+<br>
+<label style='color: #1b1e21'><td style='color: #1b1e21'></td>Woonplaats</label>
+<input type="text" name="PostalAddressLine2" value="<?php print($klant["PostalAddressLine2"]); ?>" required />
+<br>
+<input type="submit" name="opslaan" value="Opslaan" />
 <br>
 
 <?php
@@ -56,7 +55,7 @@ $klant = enkeleKlantOpvragen($id, $databaseConnection);
 
 
 <form method="post" >
-    <button class='buttonNerd' type='submit' name="button1" value="Button1" formmethod="post">
+    <button class='buttonNerd' type='submit' name="button1" value="Button1" formmethod="post" onclick="return confirm('Klant definitief verwijderen?');">
             Klant definitief verwijderen
     </button>
 </form>
