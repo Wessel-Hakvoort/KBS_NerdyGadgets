@@ -1,6 +1,5 @@
 <?php
 include 'databasefuncties.php';
-
 $gegevens = array("CustomerID" => 0, "CustomerName" => "", "DeliveryAddressLine2" => "", "PostalAddressLine2" => "", "melding" => "");
 
 
@@ -62,6 +61,10 @@ function klantGegevensToevoegen($gegevens) {
 
 function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats) {
     $statement = mysqli_prepare($connection, "INSERT INTO klant (CustomerName, DeliveryAddressLine2, PostalAddressLine2) VALUES(?,?,?)");
+    $result = mysqli_fetch_assoc(mysqli_query($connection, "SELECT max(orderID) as max FROM users"));
+    $orderID = $result['max'];
+
+
     mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
