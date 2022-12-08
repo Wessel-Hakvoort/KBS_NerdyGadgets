@@ -59,27 +59,62 @@ if (array_sum($cart) > 0) {
         <div style="margin-left: 200px; width: 500px">
             <br>
             <div style="color: #053d42;">
-                <form method="post" action="bestelconfirm.php">
-                    <h3>
-                        Naam: <input type="text" name="CustomerName" required/><br>
-                        Mail: <input type="email" name="Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                     required/><br>
-                        Telefoonnummer: <input type="tel" name="PhoneNumber" pattern="[0-9]{10}" required/><br>
-                        Adres + Huisnummer: <input type="text" name="DeliveryAddressLine2" required/><br>
-                        Woonplaats: <input type="text" name="PostalAddressLine2" required/><br>
-                        <label for="PaymentMethod">Selecteer een betaalmethode</label>
-                        <select name="PaymentMethod" id="PaymentMethod" required>
-                            <option value="iDeal">iDeal</option>
-                            <option value="Afterpay">Afterpay</option>
-                            <option value="Paypal">Paypal</option>
-                        </select>
-                        <br>
-                        <br>
-                        <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen" formmethod="post">
-                            Doorgaan naar betalen
-                        </button>
-                    </h3>
-                </form>
+                <?php
+                if (empty($_SESSION["loggedin"]) || $_SESSION["loggedin"] == FALSE) {
+                    ?>
+                    <form method="post" action="bestelconfirm.php">
+                        <h3>
+                            Naam: <input type="text" name="CustomerName" required/><br>
+                            Mail: <input type="email" name="Mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                         required/><br>
+                            Telefoonnummer: <input type="tel" name="PhoneNumber" pattern="[0-9]{10}" required/><br>
+                            Adres + Huisnummer: <input type="text" name="DeliveryAddressLine2" required/><br>
+                            Woonplaats: <input type="text" name="PostalAddressLine2" required/><br>
+                            <label for="PaymentMethod">Selecteer een betaalmethode</label>
+                            <select name="PaymentMethod" id="PaymentMethod" required>
+                                <option value="iDeal">iDeal</option>
+                                <option value="Afterpay">Afterpay</option>
+                                <option value="Paypal">Paypal</option>
+                            </select>
+                            <br>
+                            <br>
+                            <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
+                                    formmethod="post">
+                                Doorgaan naar betalen
+                            </button>
+                        </h3>
+                    </form>
+                    <?php
+                } elseif ($_SESSION["loggedin"] == TRUE) {
+                    ?>
+                    <form method="post" action="bestelconfirmuser.php">
+                        <h3>
+                            Naam: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "CustomerName"); ?>" name="CustomerName" readonly required/><br>
+                            Mail: <input type="email" value="<?php gegevensOphalenUser($databaseConnection, "Mail"); ?>" name="Mail" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                         required/><br>
+                            Telefoonnummer: <input type="tel" value="<?php gegevensOphalenUser($databaseConnection, "PhoneNumber"); ?>" name="PhoneNumber" pattern="[0-9]{10}" readonly required/><br>
+                            Adres + Huisnummer: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "Straatnaam"); ?>" name="DeliveryAddressLine2" readonly required/><br>
+                            Woonplaats: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "Woonplaats"); ?>" name="PostalAddressLine2" readonly required/><br>
+                            <label for="PaymentMethod">Selecteer een betaalmethode</label>
+                            <select name="PaymentMethod" id="PaymentMethod" required>
+                                <option value="iDeal">iDeal</option>
+                                <option value="Afterpay">Afterpay</option>
+                                <option value="Paypal">Paypal</option>
+                            </select>
+                            <br>
+                            <br>
+                            <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
+                                    formmethod="post">
+                                Doorgaan naar betalen
+                            </button>
+                        </h3>
+                    </form>
+                    <?php
+
+                } else {
+                    print "Er is iets fout gegaan!";
+                }
+                ?>
             </div>
         </div>
     </div>

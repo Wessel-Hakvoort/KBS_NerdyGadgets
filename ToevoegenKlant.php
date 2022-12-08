@@ -5,9 +5,11 @@
     <title>Klant toevoegen</title></head>
 <body>
 <?php
-include 'klantfuncties.php';
-include __DIR__ . "/header.php";
 
+include __DIR__ . "/header.php";
+if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
+    echo "<script>window.location = 'login.php';</script>";
+}
 //gegevens ophalen van de klant door middel van POST
 if (isset($_POST["toevoegen"])) {
     $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
