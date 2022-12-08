@@ -74,12 +74,15 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                 }
             }
             ?>
-
+<!--            $naam['StockItemName']-->
             <div>
 
                 <!-- Print de naam van het item -->
                 <h2 class="StockItemNameViewSize StockItemName" style="width: 1500px">
-                    <?php print $naam['StockItemName']; ?>
+                    <?php
+                    $itemID=$naam['StockItemID'];
+                    $itemNaam = $naam['StockItemName'];
+                    print "<a href='view.php?id=$itemID 'style='color: #0b95a2;'>$itemNaam</a>"; ?>
                 </h2>
                 <!-- Prijs, hoeveelheid en inclusief btw -->
                 <div class="QuantityText">
