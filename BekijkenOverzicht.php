@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Klantenoverzicht</title></head>
 <body>
-<?php include 'klantfuncties.php';
+<?php //include 'klantfuncties.php';
 include __DIR__ . "/header.php";
-
+if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
+    echo "<script>window.location = 'login.php';</script>";
+}
 if (isset($_POST["DeleteCustomerID"])) { // zelfafhandelend formulier
     unset($_SESSION['CustomerID']);
 }

@@ -1,7 +1,6 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
-include 'klantfuncties.php';
 
 $cart = getCart();
 
@@ -9,7 +8,6 @@ $StockItem = getStockItem($cart, $databaseConnection);
 $StockItemImage = getStockItemImage($cart, $databaseConnection);
 
 ?>
-
 <?php
 if (array_sum($cart) > 0) {
     ?>
@@ -24,7 +22,7 @@ if (isset($_POST["toevoegen"])) {
     $gegevens["Mail"] = isset($_POST["Mail"]) ? $_POST["Mail"] : "";
     $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
     $gegevens = klantGegevensOrderToevoegen($gegevens);
-    voegOrderToe($databaseConnection);
+    voegOrderToe($databaseConnection, totaal_prijs($cart, $databaseConnection));
     voegOrderLineToe($databaseConnection);
     //mail($_POST["Mail"], "Bestelling", "Uw bestelling bij nerdygadgets is geplaatst! Uw bestelnummer is:" . LaatsteOrderNummer($databaseConnection));
 }
