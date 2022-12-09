@@ -8,6 +8,8 @@
 <?php
 //include 'klantfuncties.php';
 include __DIR__ . "/header.php";
+
+
 if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
     echo "<script>window.location = 'login.php';</script>";
 }
@@ -79,7 +81,7 @@ if (isset($_POST["opslaan"])) {
     <div style="margin-top: 50px; margin-right: 1000px">
         <form method="post">
             <label style='color: #1b1e21'>Naam</label>
-            <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>" required/>
+            <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>"/>
             <br>
             <label style='color: #1b1e21'>Straat en huisnummer</label>
             <input type="text" name="DeliveryAddressLine2" value="<?php print($gegevens["DeliveryAddressLine2"]); ?>"
@@ -90,12 +92,12 @@ if (isset($_POST["opslaan"])) {
                    required/>
             <br>
             <label style='color: #1b1e21'>E-mail</label>
-            <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>" required/>
+            <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>"/>
             <br>
             <label style='color: #1b1e21'>Telefoonnummer</label>
-            <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>" required/>
+            <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>"/>
             <br>
-
+            <br><br>
 
             <button class='buttonNerd' type='submit' name="opslaan" formmethod="post" onclick="confirm('Deze gegevens wijzigen? De huidige gegevens gaan verloren')">
                 Opslaan

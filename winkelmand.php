@@ -20,9 +20,9 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 <!--    }-->
 <!--</script>-->
 
-    <?php
-    if (array_sum($cart) > 0) {
-    ?>
+<?php
+if (array_sum($cart) > 0) {
+?>
 
 <div id="FilterFrame"><h2 class="FilterText"><i class="fa-solid fa-cart-shopping"></i> Winkelmand </h2>
     <form action="bestellen.php">
@@ -35,7 +35,7 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <br>
             <h4 class="FilterTopMargin"> Wij rekenen nooit verzendkosten bij een bestelling!</h4>
             <br>
-            <button class="buttonNerd"> Verder naar bestellen </button>
+            <button class="buttonNerd"> Verder naar bestellen</button>
     </form>
 </div>
 </div>
@@ -45,7 +45,8 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
 <div style="margin-left: 21%; width: 78%;">
     <?php
     $i = 0;
-    foreach ($cart as $key => $value) {
+    foreach ($cart
+             as $key => $value) {
     if ($key == "") {
         continue;
     } else {
@@ -74,13 +75,13 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                 }
             }
             ?>
-<!--            $naam['StockItemName']-->
+            <!--            $naam['StockItemName']-->
             <div>
 
                 <!-- Print de naam van het item -->
                 <h2 class="StockItemNameViewSize StockItemName" style="width: 1500px">
                     <?php
-                    $itemID=$naam['StockItemID'];
+                    $itemID = $naam['StockItemID'];
                     $itemNaam = $naam['StockItemName'];
                     print "<a href='view.php?id=$itemID 'style='color: #0b95a2;'>$itemNaam</a>"; ?>
                 </h2>
@@ -89,7 +90,7 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
                     <!-- Print de per stuk prijs -->
                     <p class="StockItemPriceText">
                         <b><?php print sprintf("€ %.2f", $naam['SellPrice']); ?></b>
-                        <h6> Inclusief BTW </h6>
+                    <h6> Inclusief BTW </h6>
                     </p>
                     <!-- Verzorgd hoeveel items er in het winkelmandje zitten -->
                     <div class="input-group inputGroup-sizing-sm mb-3" style="width: 175px">
@@ -157,7 +158,7 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
     </div>
     <?php
     } else {
-    ?>
+        ?>
         <div class="StockItemName" style="text-align: center">
             <br>
             <br>
@@ -166,7 +167,8 @@ $StockItemImage = getStockItemImage($cart, $databaseConnection);
             <h3>klik <a href="browse.php">hier </a>om producten te zoeken</h3>
             <br>
         </div>
-    <?php }?>
-    <?php
+        <?php
+    }
+
     include __DIR__ . "/footer.php";
     ?>
