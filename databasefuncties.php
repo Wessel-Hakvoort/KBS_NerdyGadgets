@@ -11,6 +11,8 @@ function maakVerbinding() {
     return $connection;
 }
 
+
+
 //alle klanten selecteren uit database
 function selecteerKlanten($databaseConnection) {
     $sql = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2 FROM customers ORDER BY CustomerName";
@@ -34,10 +36,8 @@ function selecteer1Klant($id, $databaseConnection) {
     return $Result;
 }
 
-
-
-
 //verbinding met database weer sluiten
 function sluitVerbinding($connection) {
     mysqli_close($connection);
 }
+
