@@ -71,5 +71,5 @@ function totaal_prijs($cart, $databaseConnection)
         $totaal_prijs += $cart[$key] * $StockItem_int;
     }
 
-    return round($totaal_prijs, 2);
+    return sprintf("%.2f", round($totaal_prijs, 2));
 }

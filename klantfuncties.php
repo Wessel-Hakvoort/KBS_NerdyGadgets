@@ -3,9 +3,27 @@ include 'databasefuncties.php';
 
 $gegevens = array("CustomerID" => 0, "CustomerName" => "", "DeliveryAddressLine2" => "", "PostalAddressLine2" => "", "melding" => "");
 
+function getCustomerID()
+{
+    if (isset($_SESSION['CustomerID'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $id = $_SESSION['CustomerID'];                  //zo ja:  ophalen
+    } else {
+        $id = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $id;                               // resulterend winkelmandje terug naar aanroeper functie
+
+}
+
+
+function saveCustomerID($id)
+{
+    $_SESSION["CustomerID"] = $id;// werk de "gedeelde" $_SESSION["cart"] bij met de meegestuurde gegevens
+}
+
 
 //functie voor opvragen alle klanten
-function alleKlantenOpvragen() {
+function alleKlantenOpvragen()
+{
     $connection = maakVerbinding();
     $klanten = selecteerKlanten($connection);
     sluitVerbinding($connection);
@@ -13,55 +31,60 @@ function alleKlantenOpvragen() {
 }
 
 //functie voor opvragen 1 klant
-function enkeleKlantOpvragen($id, $databaseConnection) {
-    $databaseConnection = maakVerbinding();
-    $klanten = selecteer1Klant($id, $databaseConnection);
-    sluitVerbinding($databaseConnection);
-    return $klanten;
+function enkeleKlantOpvragen($id, $databaseConnection)
+{
+    $klant = selecteer1Klant($id, $databaseConnection);
+    return $klant;
 }
 
 
-//functie om 1 of meerdere klanten op het scherm te laten zien
-function toonKlantenOpHetScherm($klanten) {
-    foreach ($klanten as $klant) {
-        print("<tr>");
-        print("<td>".$klant["CustomerID"]."</td>");
-        print("<td>".$klant["CustomerName"]."</td>");
-        print("<td>".$klant["DeliveryAddressLine2"]."</td>");
-        print("<td>".$klant["PostalAddressLine2"]."</td>");
-        print("<td><a href=\"BeherenKlantgegevens.php?id=".$klant["CustomerID"]."\">Beheren klantgegevens</a></td>");
-        print("</tr>");
-    }
-}
-
-
-
-
-function toon1KlantOpHetScherm($klanten) {
-        print("<tr>");
-        print_r("<td>".$klanten["CustomerID"]."</td>");
-        print_r("<td>".$klanten["CustomerName"]."</td>");
-        print_r("<td>".$klanten["DeliveryAddressLine2"]."</td>");
-        print_r("<td>".$klanten["PostalAddressLine2"]."</td>");
-        print("<td><a href=\"klantfuncties.php".$klanten["CustomerID"]."\">Klantgegevens aanpassen</a></td>");
-        print("<td><a href=\"asd".$klanten["CustomerID"]."\">Verwijder klant</a></td>");
-        print("</tr>");
-}
-
-
-function klantGegevensToevoegen($gegevens) {
+function klantGegevensToevoegen($gegevens)
+{
     $connection = maakVerbinding();
-    if (voegKlantToe($connection, $gegevens["CustomerName"],$gegevens ["DeliveryAddressLine2"], $gegevens["PostalAddressLine2"]) == True) {
-        $gegevens["melding"] = "De klant is toegevoegd";
+    if (voegKlantToe($connection, $gegevens["CustomerName"], $gegevens ["DeliveryAddressLine2"], $gegevens["PostalAddressLine2"]) == True) {
+        $gegevens["melding"] = "<td style='color: #1b1e21'>" . "De klant is toegevoegd";
     } else {
-        $gegevens["melding"] = "Het toevoegen is mislukt";
+        $gegevens["melding"] = "<td style='color: #1b1e21'>" . "Het toevoegen is mislukt";
     }
     sluitVerbinding($connection);
     return $gegevens;
 }
 
-function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats) {
-    $statement = mysqli_prepare($connection, "INSERT INTO customers (CustomerName, DeliveryAddressLine2, PostalAddressLine2) VALUES(?,?,?)");
+function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats)
+{
+
+    $statement = mysqli_prepare($connection, "INSERT INTO customers 
+    (CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, PhoneNumber, FaxNumber, WebsiteURL, DeliveryAddressLine2, DeliveryPostalCode, PostalAddressLine1, PostalAddressLine2, PostalPostalCode,LastEditedBy,ValidFrom) 
+VALUES(?, 1, 3, 1001, 3, 242, 10, '2022-01-01', 0.000, 0, 0, 7, '(088) 469-9911', '(088) 469-9911', 'https://www.windesheim.nl', ?, 00000, 'PO Box 6155', ?, 00000, 1, '2022-01-01 00:00:00')");
+    mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
+    mysqli_stmt_execute($statement);
+    return mysqli_stmt_affected_rows($statement) == 1;
+}
+
+function verwijderKlant($connection, $id)
+{
+    $statement = mysqli_prepare($connection, "DELETE FROM customers WHERE CustomerID = $id");
+    mysqli_stmt_execute($statement);
+    return mysqli_stmt_affected_rows($statement) == 1;
+}
+
+
+function klantGegevensUpdaten($gegevens)
+{
+    $connection = maakVerbinding();
+    if (gegevensOpslaan($connection, $gegevens["CustomerID"], $gegevens["CustomerName"], $gegevens ["DeliveryAddressLine2"], $gegevens["PostalAddressLine2"]) == True) {
+        $gegevens["melding"] = "De gegevens zijn opgeslagen";
+    } else {
+        $gegevens["melding"] = "Het opslaan is mislukt";
+    }
+    sluitVerbinding($connection);
+    return $gegevens;
+}
+
+
+function gegevensOpslaan($connection, $id, $naam, $straatEnHuisnummer, $woonplaats)
+{
+    $statement = mysqli_prepare($connection, "UPDATE customers SET CustomerName = ?, DeliveryAddressLine2 = ?, PostalAddressLine2 = ? WHERE CustomerID=$id");
     mysqli_stmt_bind_param($statement, 'sss', $naam, $straatEnHuisnummer, $woonplaats);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
@@ -79,7 +102,9 @@ function klantGegevensOrderToevoegen($gegevens)
     sluitVerbinding($connection);
     return $gegevens;
 }
-function voegKlantOrderToe($connection, $naam, $straatEnHuisnummer, $woonplaats, $mail, $phonenumber) {
+
+function voegKlantOrderToe($connection, $naam, $straatEnHuisnummer, $woonplaats, $mail, $phonenumber)
+{
     $statement = mysqli_prepare($connection, "INSERT INTO customers (CustomerName, DeliveryAddressLine2, PostalAddressLine2, Mail, PhoneNumber) VALUES(?,?,?,?,?)");
     mysqli_stmt_bind_param($statement, 'ssssi', $naam, $straatEnHuisnummer, $woonplaats, $mail, $phonenumber);
     mysqli_stmt_execute($statement);
@@ -88,12 +113,24 @@ function voegKlantOrderToe($connection, $naam, $straatEnHuisnummer, $woonplaats,
 
 //functie haalt de sessie inhoud op
 
-function voegOrderToe($connection)
+function voegOrderToe($connection, $totaalprijs)
 {
     //order toevoegen
-    $statement = mysqli_prepare($connection, "INSERT INTO orders (CustomerID, OrderDate) VALUES((SELECT CustomerID FROM customers WHERE CustomerID = (SELECT MAX(CustomerID) FROM customers)), CURDATE())");
-    mysqli_stmt_execute($statement);
-    return mysqli_stmt_affected_rows($statement) == 1;
+    if (empty($_SESSION["loggedin"])) {
+        $statement = mysqli_prepare($connection, "INSERT INTO orders (CustomerID, OrderDate, TotalPrice) VALUES((SELECT CustomerID FROM customers WHERE CustomerID = (SELECT MAX(CustomerID) FROM customers)), CURDATE(), '$totaalprijs')");
+        mysqli_stmt_execute($statement);
+        return mysqli_stmt_affected_rows($statement) == 1;
+    } elseif ($_SESSION["loggedin"] == TRUE) {
+        $userid = $_SESSION["id"];
+        //zoekt klant gegevens op basis van userid session
+        $result = mysqli_query($connection, "SELECT CustomerID FROM customers WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = $userid);");
+        while ($row = mysqli_fetch_array($result)) {
+            $CustomerID = $row['CustomerID'];
+            $statement = mysqli_prepare($connection, "INSERT INTO orders (CustomerID, OrderDate, TotalPrice) VALUES($CustomerID, CURDATE(), '$totaalprijs')");
+            mysqli_stmt_execute($statement);
+            return mysqli_stmt_affected_rows($statement) == 1;
+        }
+    }
 }
 
 function voegOrderLineToe($connection)
@@ -111,7 +148,10 @@ function voegOrderLineToe($connection)
             $Description = $naam['StockItemName'];;
             $Quantity = $cart[$key];
             $UnitPrice = $naam['SellPrice'];
-            $statement = mysqli_prepare($connection, "INSERT INTO orderlines (OrderID, StockItemID, Description, Quantity, UnitPrice, LastEditedWhen) VALUES ((SELECT OrderID FROM orders WHERE OrderID = (SELECT MAX(OrderID) FROM orders)),$StockItemID,'$Description',$Quantity,$UnitPrice,NOW())");
+            $TaxRate = 15;
+            $statement = mysqli_prepare($connection, "UPDATE stockitemholdings SET QuantityOnHand = QuantityOnHand - $Quantity WHERE StockItemID = $StockItemID");
+            mysqli_stmt_execute($statement);
+            $statement = mysqli_prepare($connection, "INSERT INTO orderlines (OrderID, StockItemID, Description, Quantity, UnitPrice, TaxRate, LastEditedWhen) VALUES ((SELECT OrderID FROM orders WHERE OrderID = (SELECT MAX(OrderID) FROM orders)),$StockItemID,'$Description',$Quantity,$UnitPrice,$TaxRate,NOW())");
             mysqli_stmt_execute($statement);
             deleteProductFromCart($StockItemID);
             mysqli_stmt_affected_rows($statement) == 1;
@@ -119,6 +159,7 @@ function voegOrderLineToe($connection)
         }
     }
 }
+
 // haalt ordernummer op voor bestelconfirm.php
 function LaatsteOrderNummer($connection)
 {
@@ -126,4 +167,129 @@ function LaatsteOrderNummer($connection)
     while ($row = mysqli_fetch_array($result)) {
         echo $row['OrderID'];
     }
+}
+
+
+function registerUser($connection, $email, $password_1, $password_2)
+{
+    //controleren of email al in gebruik is
+    $mailcheck = FALSE;
+    if (isset($_POST['but-register'])) {
+        $result = mysqli_query($connection, "SELECT mail FROM users WHERE mail = '$email'LIMIT 1");
+        while ($row = mysqli_fetch_array($result)) {
+            $mailcheck = $row['mail'];
+        }
+
+        if ($email == $mailcheck) {
+            print "<h5 style='text-align:center;color:darkred'>Dit mail adres is al in gebruik!</h5>";
+        } elseif ($password_1 == $password_2) {
+            $statement = mysqli_prepare($connection, "INSERT INTO users (mail, password, createddate) VALUES('$email','$password_1',NOW());");
+            mysqli_stmt_execute($statement);
+            print "<h5 style='text-align:center;color:darkgreen'>Account aangemaakt!</h5>";
+            mysqli_stmt_affected_rows($statement) == 1;
+            echo "<script>window.location = 'register2.php';</script>";
+        } else {
+            print "<h5 style='text-align:center;color:darkred'>Uw wachtwoorden komen niet overeen!</h5>";
+        }
+    }
+}
+
+function gegevensUser($connection, $naam, $straatEnHuisnummer, $woonplaats, $phonenumber)
+{
+    //zoekt mailaddres op
+    $result = mysqli_query($connection, "SELECT mail FROM users WHERE createddate = (SELECT MAX(createddate) FROM users)");
+    while ($row = mysqli_fetch_array($result)) {
+        $mail = $row['mail'];
+    }
+    //voegt rij toe in customers
+    $statement = mysqli_prepare($connection, "INSERT INTO customers (CustomerName, DeliveryAddressLine2, PostalAddressLine2, Mail, PhoneNumber) VALUES('$naam','$straatEnHuisnummer','$woonplaats','$mail','$phonenumber');");
+    mysqli_stmt_execute($statement);
+    mysqli_stmt_affected_rows($statement) == 1;
+    //zoekt customerid op
+    $result = mysqli_query($connection, "SELECT CustomerID FROM customers WHERE CustomerID = (SELECT MAX(CustomerID) FROM customers)");
+    while ($row = mysqli_fetch_array($result)) {
+        $CustomerID = $row['CustomerID'];
+    }
+    //voegt customerid toe in users
+    $statement = mysqli_prepare($connection, "UPDATE users SET CustomerID = $CustomerID WHERE mail = '$mail';");
+    mysqli_stmt_execute($statement);
+    mysqli_stmt_affected_rows($statement) == 1;
+
+    echo "<script>window.location = 'login.php';</script>";
+}
+
+function gegevensOphalenUser($connection, $search)
+{
+    $userid = $_SESSION["id"];
+    //zoekt klant gegevens op basis van userid session
+    $result = mysqli_query($connection, "SELECT CustomerID, CustomerName, Mail, PhoneNumber, DeliveryAddressLine2, PostalAddressLine2 FROM customers WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = $userid);");
+    while ($row = mysqli_fetch_array($result)) {
+        $CustomerID = $row['CustomerID'];
+        $CustomerName = $row['CustomerName'];
+        $Mail = $row['Mail'];
+        $PhoneNumber = $row['PhoneNumber'];
+        $Straatnaam = $row['DeliveryAddressLine2'];
+        $Woonplaats = $row['PostalAddressLine2'];
+    }
+    print $$search;
+}
+
+function loginUser($connection, $email, $password)
+{
+    $passwordcheck = FALSE;
+    $result = mysqli_query($connection, "SELECT password FROM users WHERE mail = '$email'");
+    while ($row = mysqli_fetch_array($result)) {
+        $passwordcheck = $row['password'];
+    }
+
+    if ($passwordcheck == $password) {
+        $result = mysqli_query($connection, "SELECT userid FROM users WHERE mail = '$email'");
+        while ($row = mysqli_fetch_array($result)) {
+            $userid = $row['userid'];
+        }
+        $_SESSION["loggedin"] = TRUE;
+        $_SESSION["id"] = $userid;
+        $_SESSION["mail"] = $email;
+        print "<h5 style='text-align:center;color:darkgreen'>U bent succesvol ingelogd!</h5>";
+        echo "<script>window.location = 'account.php';</script>";
+    } else {
+        print "<h5 style='text-align:center;color:darkred'>Uw wachtwoord of email is onjuist!</h5>";
+    }
+}
+
+function selecteerOrders($databaseConnection)
+{
+    $userid = $_SESSION["id"];
+    $sql = "SELECT OrderID, OrderDate, TotalPrice FROM orders WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = $userid) ORDER BY OrderDate DESC;";
+    $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+
+function alleOrdersOpvragen()
+{
+    $connection = maakVerbinding();
+    $orders = selecteerOrders($connection);
+    sluitVerbinding($connection);
+    return $orders;
+}
+
+function selecteerOrderslines($databaseConnection, $OrderID)
+{
+    $sql = "SELECT StockItemID, Description, Quantity, Unitprice, TaxRate FROM orderlines WHERE OrderID = $OrderID;";
+    $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+
+function alleOrderslinesOpvragen($OrderID)
+{
+    $connection = maakVerbinding();
+    $orders = selecteerOrderslines($connection, $OrderID);
+    sluitVerbinding($connection);
+    return $orders;
+}
+
+function verwijderUser($connection, $userid) {
+        $statement = mysqli_prepare($connection, "DELETE FROM users WHERE userid = $userid;");
+        mysqli_stmt_execute($statement);
+        return mysqli_stmt_affected_rows($statement) == 1;
 }
