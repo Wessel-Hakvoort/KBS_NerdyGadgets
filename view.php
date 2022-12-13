@@ -8,8 +8,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
 <!--fixed reload van pagina met silent submission-->
 <script>
-    if (window.history.replaceState ) {
-        window.history.replaceState(null,null,window.location.href);
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 </script>
 <div id="CenteredContent">
@@ -70,7 +70,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     </div>
                     <?php
                 }
-            } elseif(isset($StockItem['BackupImagePath'])) {
+            } elseif (isset($StockItem['BackupImagePath'])) {
                 ?>
                 <div id="ImageFrame"
                      style="background-image: url(' <?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
@@ -84,22 +84,40 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             </h2>
             <div class="QuantityText"><?php print getVoorraadTekst($StockItem['QuantityOnHand']); ?></div>
             <div id="StockItemHeaderLeft">
+                <div>
+                    <form>
+                        <button class="btn btn-outline-secondary" type="submit"
+                                name="submitVerlanglijstje">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </form>
+                    <?php
+                    if (isset($_POST["submitVerlanglijstje"])) {              // zelfafhandelend formulier
+                        $stockItemID = $_POST["stockItemID"];
+                        addProductToVerlanglijstje($stockItemID); // maak gebruik van geïmporteerde functie
+                        $verlanglijstje = getVerlanglijstje();
+                        print "<p>Toegevoegd aan <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</p>";
+                    }
+                    ?>
+                </div>
+                <!--                <input class="button-37"  type="submit" name="verlanglijtje_submit" value="Toevoegen aan verlanglijstje">-->
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
                         </p>
                         <h6> Inclusief BTW </h6>
                         <form method="post">
-                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
+                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
+                                   hidden>
                             <input class="button-37" type="submit" name="submit" value="In winkelmandje">
 
                         </form>
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             $stockItemID = $_POST["stockItemID"];
-                            if ($StockItem['QuantityOnHand'] <= 0){
-                             print "Er is niet genoeg voorraad";
-                            }else {
+                            if ($StockItem['QuantityOnHand'] <= 0) {
+                                print "Er is niet genoeg voorraad";
+                            } else {
                                 addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
                                 $cart = getCart();
                                 print "<p>Toegevoegd aan <a href='winkelmand.php' style='color: #0b95a2'><u>winkelmand</u></a>!</p>";
