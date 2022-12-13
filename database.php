@@ -97,30 +97,21 @@ function getStockItemImage($id, $databaseConnection) {
 }
 
 function getStockItemGroups ($id, $databaseConnection){
-    $Result = null;
+    $Query = "SELECT StockGroupID FROM nerdygadgets.stockitemstockgroups WHERE StockItemID = $id LIMIT 1;";
+    $result = mysqli_query($databaseConnection, $Query);
+    while ($row = mysqli_fetch_array($result)) {
+        $StockItemID = $row['StockGroupID'];
 
-    $Query = "SELECT StockGroupID FROM nerdygadgets.stockitemstockgroups WHERE StockItemID = ? LIMIT 1;";
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "i", $id);
-    mysqli_stmt_execute($Statement);
-    $ReturnableResult = mysqli_stmt_get_result($Statement);
-    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
-        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
-    }
-
-    return $Result;
-}
+    return $StockItemID;
+}}
 
 function getStockItemStockGroups ($id, $databaseConnection){
-    $Result = null;
     $Query = "SELECT StockItemID FROM nerdygadgets.stockitemstockgroups WHERE StockGroupID = ? LIMIT 3;";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
-    $ReturnableResult = mysqli_stmt_get_result($Statement);
-    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 3) {
-        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
-    }
+    $Result = mysqli_stmt_get_result($Statement);
+    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
 
     return $Result;
 }

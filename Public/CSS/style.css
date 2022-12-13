@@ -280,6 +280,16 @@ ul#ul-class-navigation li {
     font-family: pt-sans, sans-serif;
     font-size: 20px;
 }
+#AanbevolenProducten {
+    background-color: #086972;
+    width: 100%;
+    float: left;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid;
+    font-family: pt-sans, sans-serif;
+    font-size: 20px;
+}
 
 .Labels {
     margin-bottom: 0;
