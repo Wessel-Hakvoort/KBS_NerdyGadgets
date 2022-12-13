@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>Klantenoverzicht</title></head>
 <body>
-<?php include 'klantfuncties.php';
+<?php //include 'klantfuncties.php';
 include __DIR__ . "/header.php";
-
+if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
+    echo "<script>window.location = 'login.php';</script>";
+}
 if (isset($_POST["DeleteCustomerID"])) { // zelfafhandelend formulier
     unset($_SESSION['CustomerID']);
 }
 
 
 if (isset($_POST["CustomerID"])) { // zelfafhandelend formulier
-     $id = $_POST["CustomerID"];
-     saveCustomerID($id); //Zet de id van de customer in een sessie
- }
-
+    $id = $_POST["CustomerID"];
+    saveCustomerID($id); //Zet de id van de customer in een sessie
+}
 
 
 $klanten = alleKlantenOpvragen(); ?>
@@ -30,8 +31,8 @@ $klanten = alleKlantenOpvragen(); ?>
         <th>Naam</th>
         <th>Straat en huisnummer</th>
         <th>Woonplaats</th>
-        <th></th>
-        <th></th>
+        <th>E-mail</th>
+        <th>Telefoonnummer</th>
     </tr>
     </thead>
 
@@ -43,17 +44,19 @@ $klanten = alleKlantenOpvragen(); ?>
             print("<td style='color: #1b1e21'>" . $klant["CustomerName"] . "</td>");
             print("<td style='color: #1b1e21'>" . $klant["DeliveryAddressLine2"] . "</td>");
             print("<td style='color: #1b1e21'>" . $klant["PostalAddressLine2"] . "</td>");
+            print("<td style='color: #1b1e21'>" . $klant["mail"] . "</td>");
+            print("<td style='color: #1b1e21'>" . $klant["PhoneNumber"] . "</td>");
             ?>
             <td>
-            <form method='post' action="BeherenKlantgegevens.php">
-                <input type='number' name='CustomerID' value="<?php print ($klant["CustomerID"]) ?>" hidden>
-                <button  class='buttonNerd' type='submit' name="buttonCustomerID">
-                    Beheren klantgegevens
-                </button>
-            </form>
+                <form method='post' action="BeherenKlantgegevens.php">
+                    <input type='number' name='CustomerID' value="<?php print ($klant["CustomerID"]) ?>" hidden>
+                    <button class='buttonNerd' type='submit' name="buttonCustomerID">
+                        Beheren klantgegevens
+                    </button>
+                </form>
             </td>
         </tr>
-        <?php } ?>
+    <?php } ?>
 
     </tbody>
 </table>

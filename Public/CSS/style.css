@@ -3,21 +3,23 @@ html {
 }
 
 body {
-    overflow-x:hidden;
+    overflow-x: hidden;
     color: #FFF !important;
     background-color: e6e6e6 !important;
 }
+
 @font-face {
     font-family: MmrText;
     src: url(/Public/fonts/mmrtext.ttf);
 }
+
 select {
     margin: 50px;
     width: 100%;
     padding: 5px 35px 5px 5px;
     font-size: 16px;
     border: 1px solid #CCC;
-    height:50px;
+    height: 50px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -27,11 +29,13 @@ select {
 a {
     text-decoration: none;
     position: relative;
-    color:#000000;
+    color: #000000;
 }
+
 a:hover {
-     text-decoration: none !important;
- }
+    text-decoration: none !important;
+}
+
 a span {
     display: none;
     position: absolute;
@@ -39,8 +43,10 @@ a span {
     background: #676EFF;
     padding: 5px;
 }
+
 a:hover span {
-    display: inline-block; text-align: center;
+    display: inline-block;
+    text-align: center;
     width: 250px;
     min-height: 30px;
     margin-top: 25px;
@@ -50,6 +56,7 @@ a:hover span {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 input {
     font-family: pt-sans, sans-serif;
     height: 50px;
@@ -57,15 +64,18 @@ input {
     width: 100%;
     padding: 0 10px;
 }
+
 table tr th,
 table tr td {
     padding: 10px;
 }
+
 ul#ul-class-navigation {
     right: 10px;
     line-height: 200px;
     position: absolute;
 }
+
 ul#ul-class-navigation li {
     color: white;
     display: inline;
@@ -74,51 +84,58 @@ ul#ul-class-navigation li {
     text-decoration: none;
     text-decoration-color: currentcolor;
 }
+
 #Header {
     position: fixed;
-    top:0;
+    top: 0;
     background-color: #086972;
     width: 100%;
     height: 200px;
     z-index: 1;
     border-bottom: 4px solid #e6e6e6;
 }
+
 #Content {
     margin-top: 200px;
 }
+
 #FilterFrame {
     position: fixed;
     width: 19%;
     background-color: #086972;
     float: left;
-    top:216px;
+    top: 216px;
     border: 1px solid #fff;
     margin-left: 5px;
     margin-top: 10px;
     padding: 20px;
 }
+
 #WinkelmandOverzicht {
     position: fixed;
     width: 19%;
     background-color: #086972;
     float: left;
-    top:216px;
+    top: 216px;
     border: 1px solid #fff;
     margin-left: 5px;
     margin-top: 10px;
     padding: 20px;
 }
-#ResultsArea.Browse  {
+
+#ResultsArea.Browse {
     width: 78%;
     margin-left: 21%;
     float: left;
     position: sticky;
 }
-#ResultsAreaWinkelmandje.Browse  {
+
+#ResultsAreaWinkelmandje.Browse {
 
     float: left;
     position: sticky;
 }
+
 #ProductFrame {
     width: 100%;
     height: 250px;
@@ -127,6 +144,7 @@ ul#ul-class-navigation li {
     padding: 1px;
     border-bottom: 2px solid #053d42;
 }
+
 .ImgFrame {
     width: 230px;
     height: 230px;
@@ -136,10 +154,12 @@ ul#ul-class-navigation li {
     margin-top: 10px;
     margin-right: 10px
 }
+
 .ImgFrame img {
     width: 230px;
     height: 230px;
 }
+
 #StockItemFrameRight {
     float: right;
     text-align: right;
@@ -150,6 +170,7 @@ ul#ul-class-navigation li {
     right: 0;
     top: 0;
 }
+
 .ItemName {
     position: relative;
     top: 10px;
@@ -159,6 +180,7 @@ ul#ul-class-navigation li {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 .ItemQuantity {
     position: absolute;
     left: 250px;
@@ -166,17 +188,20 @@ ul#ul-class-navigation li {
     color: #053d42;
     font-size: 15px;
 }
+
 #VideoFrame {
     width: 100%;
     height: 350px;
     background-color: #d6d6d6;
     margin-bottom: 10px;
 }
+
 #ArticleHeader {
     min-width: 100%;
     height: 300px;
     position: relative
 }
+
 #ImageFrame {
     width: 300px;
     height: 300px;
@@ -184,13 +209,15 @@ ul#ul-class-navigation li {
     float: left;
     margin-right: 10px;
 }
+
 .QuantityText {
     position: absolute;
     left: 310px;
     bottom: 0;
-	color: #053d42;
+    color: #053d42;
     font-weight: bold;
 }
+
 #StockItemHeaderLeft {
     float: right;
     text-align: right;
@@ -198,79 +225,89 @@ ul#ul-class-navigation li {
     top: 0;
     right: 0;
     height: 300px;
-	color: #053d42;	
+    color: #053d42;
     font-weight: bold;
 }
 
 .StockItemNameViewSize {
     font-size: 35px !important;
 }
+
 .CenterPriceLeft {
     position: absolute;
     height: 100%;
     right: 0;
     width: 200px;
 }
+
 .CenterPriceLeftChild {
     position: relative;
     top: 40%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
 #StockItemDescription {
     background-color: #086972;
     width: 49%;
     float: left;
     padding: 10px;
-    margin-top:10px;
+    margin-top: 10px;
     border: 1px solid;
     font-family: pt-sans, sans-serif;
     font-size: 20px;
 }
+
 #ViewBasket {
     background-color: #086972;
     width: 30%;
     float: right;
     padding: 200px;
-    margin-top:10px;
+    margin-top: 10px;
     border: 1px solid;
     font-family: pt-sans, sans-serif;
     font-size: 20px;
 }
+
 #StockItemSpecifications {
     background-color: #086972;
     width: 49%;
     float: left;
     padding: 10px;
     margin-left: 1%;
-    margin-top:10px;
+    margin-top: 10px;
     border: 1px solid;
     font-family: pt-sans, sans-serif;
     font-size: 20px;
 }
+
 .Labels {
     margin-bottom: 0;
     padding: 10px;
     font-size: 20px;
     margin-right: 5px;
 }
+
 .Background {
     background-color: #e6e6e6;
     width: 100%;
     height: 100%;
     position: absolute;
 }
+
 #LogoA {
     height: 200px;
     width: 100%;
     position: absolute;
 }
+
 #LogoImage {
     background-image: url("../ProductIMGHighRes/NerdyGadgetsLogo.png");
     width: 300px;
     height: 130px;
     margin: 55px 55px 55px 10%;
 }
+
 ul#ul-class li {
     display: inline;
     color: white;
@@ -279,9 +316,11 @@ ul#ul-class li {
     text-decoration: none;
     line-height: 200px;
 }
+
 ul#ul-class-price li {
     display: inline;
 }
+
 .TextPrice {
     margin-top: 16%;
     -webkit-touch-callout: none;
@@ -291,6 +330,7 @@ ul#ul-class-price li {
     -ms-user-select: none;
     user-select: none;
 }
+
 .HrefDecoration {
     color: #ffffff;
 }
@@ -303,6 +343,7 @@ ul#ul-class-price li {
     text-decoration: none;
     color: #ccc;
 }
+
 .TextMain {
     color: #053d42;
     font-family: vortice-concept, sans-serif;
@@ -312,6 +353,7 @@ ul#ul-class-price li {
     width: 60%;
     margin-left: 10%;
 }
+
 .HomePagePrice {
     color: #0b95a2;
     font-family: vortice-concept, sans-serif;
@@ -320,6 +362,7 @@ ul#ul-class-price li {
     font-weight: bold;
     margin-left: 7%;
 }
+
 .HomePageStockItemPicture {
     background-image: url("../ProductIMGHighRes/580b57fbd9996e24bc43bf55.png");
     background-size: 100% 100%;
@@ -329,6 +372,7 @@ ul#ul-class-price li {
     margin-left: 55%;
     margin-top: -30%;
 }
+
 #Wrap {
     width: 100%;
     height: 600px;
@@ -343,6 +387,7 @@ ul#ul-class-price li {
     -ms-user-select: none;
     user-select: none;
 }
+
 .StockGroups {
     position: relative;
     border: 1px solid slategrey;
@@ -356,61 +401,75 @@ ul#ul-class-price li {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 #StockGroup1 {
     width: 18%;
     height: 600px;
     margin-left: 5%;
 }
+
 #StockGroup2 {
     width: 18%;
     height: 600px;
     background-size: cover;
 }
+
 #StockGroup3 {
     width: 15%;
     height: 41.5%;
 }
+
 #StockGroup4 {
     width: 30%;
     height: 250px;
 }
+
 #StockGroup5 {
     width: 25%;
     height: 53.5%;
     margin-top: 1.5%;
 }
+
 #StockGroup6 {
     width: 20%;
     height: 53.5%;
     margin-left: 1.5%;
     margin-top: 1.5%;
 }
+
 .StockGroups h1 {
     position: absolute;
-    left:0;
+    left: 0;
     right: 0;
     font-size: 25px;
 }
+
 #StockGroup2 h1 {
     bottom: 0;
 }
+
 #StockGroup1 h1 {
     bottom: 0;
 }
+
 #StockGroup5 h1 {
     bottom: 0;
 }
+
 #StockGroup6 h1 {
     bottom: 0;
 }
+
 #Wrap a {
     text-decoration: none;
     color: white;
 }
+
 #Wrap a:hover {
     color: #ccc;
     opacity: 0.9;
 }
+
 .StockItemPriceText {
     font-family: vortice-concept, sans-serif;
     color: #053d42;
@@ -419,9 +478,11 @@ ul#ul-class-price li {
     font-weight: bold;
     margin-top: 25px;
 }
+
 .StockItemPriceText:hover {
     text-decoration: none;
 }
+
 .StockItemID {
     font-family: pt-sans, sans-serif;
     color: #053d42;
@@ -430,6 +491,7 @@ ul#ul-class-price li {
     font-weight: bold;
     margin-top: 15px;
 }
+
 .StockItemName {
     font-family: pt-sans, sans-serif;
     color: #053d42;
@@ -437,62 +499,76 @@ ul#ul-class-price li {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 .StockItemComments {
     font-family: pt-sans, sans-serif;
     color: #053d42;
     font-size: 16px;
     font-weight: bold;
 }
+
 #CenteredContent {
     margin: 0 auto;
     width: 70%;
     padding-top: 10px;
 }
+
 .carousel-inner img {
     width: 100%;
     height: 100%;
 }
+
 #ImageCarousel {
     width: 300px;
     height: 300px;
 }
+
 .carousel-control-next-icon:hover,
 .carousel-control-prev-icon:hover {
     width: 20px;
     height: 20px;
 }
+
 .ListItem:hover {
     text-decoration: none;
 }
+
 #NoSearchResults {
     text-align: center;
     height: 100%;
     margin: 20px;
     position: relative;
 }
+
 #ProductNotFound {
     text-align: center;
     position: relative;
 
 }
+
 .IndexStyle {
     margin: 0 auto;
     width: 1400px;
 }
+
 .FilterTopMargin {
     margin-top: 20px;
 }
+
 #ProductFrame h6 {
     color: #053d42;
 }
+
 #CategoriesBar {
     position: absolute;
     left: 280px;
 }
+
 #PageSelector {
     text-align: center;
     margin: 20px;
 }
+
 #SelectedPage {
     font-size: 18px;
     display: inline;
@@ -501,6 +577,7 @@ ul#ul-class-price li {
     padding: 15px 22px;
     border-radius: 50px;
 }
+
 .PageNumber {
     padding: 7px 15px;
     border-radius: 39px;
@@ -508,17 +585,17 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
-.buttonNerd {
-  background-color: #053d42;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 
+.buttonNerd {
+    background-color: #053d42;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 
 
 .button-37 {
@@ -553,6 +630,7 @@ ul#ul-class-price li {
         padding: 10px 30px;
     }
 }
+
 .popUpWinkelmand {
     display: none;
     position: absolute;
@@ -564,11 +642,104 @@ ul#ul-class-price li {
     width: 60%;
     height: 50rem;
 }
-.closeButtonWinkelmand{
+.closeButtonWinkelmand {
     background: none;
     border: none;
     position: absolute;
     left: 97%;
     top: 1%;
     color: white;
+}
+
+
+/* CSS */
+.button-5 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #fa6400;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.button-5:hover,
+.button-5:focus {
+    background-color: #fb8332;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+    transform: translateY(-1px);
+}
+
+.button-5:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+}
+
+.button-6 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: red;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+    background-color: #a70000;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-6:hover {
+    transform: translateY(-1px);
+}
+
+.button-6:active {
+    background-color: #fd1d1d;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+>>>>>>> c4dc9ba0d823b5f6461c517004d9594925090601
 }

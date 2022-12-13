@@ -5,14 +5,18 @@
     <title>Klant toevoegen</title></head>
 <body>
 <?php
-include 'klantfuncties.php';
-include __DIR__ . "/header.php";
 
+include __DIR__ . "/header.php";
+if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
+    echo "<script>window.location = 'login.php';</script>";
+}
 //gegevens ophalen van de klant door middel van POST
 if (isset($_POST["toevoegen"])) {
     $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
     $gegevens["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
     $gegevens["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
+    $gegevens["mail"] = isset($_POST["mail"]) ? $_POST["mail"] : "";
+    $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
     $gegevens = klantGegevensToevoegen($gegevens);
 }
 ?>
@@ -31,6 +35,16 @@ if (isset($_POST["toevoegen"])) {
         <br>
         <label style='color: #1b1e21'>Woonplaats</label>
         <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>" required/>
+        <br>
+        <label style='color: #1b1e21'>E-mail</label>
+        <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>"
+               required/>
+        <br>
+        <br>
+        <label style='color: #1b1e21'>Telefoonnummer</label>
+        <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>"
+               required/>
+        <br>
         <br><br>
         <button class='btn btn-dark' type="submit" name="toevoegen">
             Toevoegen klant
