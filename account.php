@@ -22,7 +22,7 @@ if ($_SESSION["loggedin"] == TRUE) {
         <a style="padding-left:10px; font-size:25px;" href="accountbestellingen.php" class="HrefDecoration"><i <i
                     class="fa-regular fa-clipboard"></i></i> Bestellingen</a>
         <hr>
-        <a style="padding-left:10px; font-size:25px;" href="accountverlangslijstje.php" class="HrefDecoration"><i
+        <a style="padding-left:10px; font-size:25px;" href="accountverlanglijstje.php" class="HrefDecoration"><i
                     class="fa-regular fa-heart"></i> Verlanglijstje</a>
         <hr>
         <a style="padding-left:10px; font-size:25px;" href="accountaanbevolen.php" class="HrefDecoration"><i
