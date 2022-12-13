@@ -6,7 +6,7 @@ if (empty($_SESSION["loggedin"])) {
     echo "<script>window.location = 'login.php';</script>";
 }
 if ($_SESSION["mail"] == "admin") {
-    echo "<script>window.location = 'BekijkenOverzicht.php';</script>";
+    echo "<script>window.location = 'admin.php';</script>";
 }
 if ($_SESSION["loggedin"] == TRUE) {
     ?>
@@ -24,33 +24,12 @@ if ($_SESSION["loggedin"] == TRUE) {
                 <hr>
                 <a style="padding-left:10px; font-size:25px;" href="accountverlangslijstje.php" class="HrefDecoration"><i
                             class="fa-regular fa-heart"></i> Verlanglijstje</a>
-                <hr>
-                <a style="padding-left:10px; font-size:25px;" href="accountaanbevolen.php" class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Aanbevolen</a>
-                <hr>
-            <?php }
-            if ($_SESSION["mail"] == "admin") {
-                ?>
-                <a style="color: white; padding-left:10px; font-size:25px;" href="adminoverzicht.php"
-                   class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Home</a><hr>
-                <a style="color: white; padding-left:10px; font-size:25px;" href="adminorders.php"
-                   class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Orders</a><hr>
-                <a style="color: white; padding-left:10px; font-size:25px;" href="adminklanten.php"
-                   class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Klanten</a><hr>
-                <a style="color: white; padding-left:10px; font-size:25px;" href="adminaccounts.php"
-                   class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Accounts</a>
-            <?php }
-            $orders = alleOrdersOpvragen();
-            ?>
+                <?php } ?>
         </div>
     </div>
     <div style="color: #053d42; margin-left: 19%; width: 81%;">
         <h3 style="font-size:40px">Mijn bestellingen</h3>
-        <br>
+        <hr>
         <table>
             <thead>
             <tr style='color: #1b1e21'>
@@ -61,6 +40,7 @@ if ($_SESSION["loggedin"] == TRUE) {
             </tr>
             </thead>
             <?php
+            $orders = alleOrdersOpvragen("niks");
             foreach ($orders as $order) { ?>
                 <tr style="border-bottom:1pt solid black;">
                     <?php
