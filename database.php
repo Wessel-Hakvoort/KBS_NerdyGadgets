@@ -112,15 +112,15 @@ function getStockItemGroups ($id, $databaseConnection){
 }
 
 function getStockItemStockGroups ($id, $databaseConnection){
-
+    $Result = null;
     $Query = "SELECT StockItemID FROM nerdygadgets.stockitemstockgroups WHERE StockGroupID = ? LIMIT 3;";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
-
-    $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
-
+    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 3) {
+        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
+    }
 
     return $Result;
 }

@@ -5,7 +5,8 @@ include __DIR__ . "/header.php";
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 $StockGroups = getStockItemGroups($_GET['id'], $databaseConnection);
-$StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
+$StockGroupsItems = getStockItemStockGroups(array_values($StockGroups), $databaseConnection);
+print_r (array_values($StockGroups));
 ?>
 
 <!--fixed reload van pagina met silent submission-->
