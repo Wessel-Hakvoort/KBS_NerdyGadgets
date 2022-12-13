@@ -33,6 +33,8 @@ if (isset($_POST["opslaan"])) {
     $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
     $gegevens["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
     $gegevens["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
+    $gegevens["mail"] = isset($_POST["mail"]) ? $_POST["mail"] : "";
+    $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
     $gegevens = klantGegevensUpdaten($gegevens);
     print ' <meta http-equiv="refresh" content="0">';
 }
@@ -61,6 +63,18 @@ if (isset($_POST["opslaan"])) {
             Woonplaats:</label>
         <p style=" width: 150px; color: #1b1e21"><?php print($klant["PostalAddressLine2"]); ?></p>
     </div>
+    <div>
+        <label style="color: black; font-weight: bold">
+            <td style='color: #1b1e21'></td>
+            E-mail:</label>
+        <p style=" width: 150px; color: #1b1e21"><?php print($klant["mail"]); ?></p>
+    </div>
+    <div>
+        <label style="color: black; font-weight: bold">
+            <td style='color: #1b1e21'></td>
+            Telefoonnummer:</label>
+        <p style=" width: 150px; color: #1b1e21"><?php print($klant["PhoneNumber"]); ?></p>
+    </div>
 
     <div style="margin-top: 50px; margin-right: 1000px">
         <form method="post">
@@ -74,7 +88,13 @@ if (isset($_POST["opslaan"])) {
             <label style='color: #1b1e21'>Woonplaats</label>
             <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>"
                    required/>
-            <br><br>
+            <br>
+            <label style='color: #1b1e21'>E-mail</label>
+            <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>" required/>
+            <br>
+            <label style='color: #1b1e21'>Telefoonnummer</label>
+            <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>" required/>
+            <br>
 
 
             <button class='buttonNerd' type='submit' name="opslaan" formmethod="post" onclick="confirm('Deze gegevens wijzigen? De huidige gegevens gaan verloren')">

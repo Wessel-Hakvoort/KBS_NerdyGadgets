@@ -15,7 +15,7 @@ function maakVerbinding() {
 
 //alle klanten selecteren uit database
 function selecteerKlanten($databaseConnection) {
-    $sql = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2 FROM customers ORDER BY CustomerName";
+    $sql = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2, mail, PhoneNumber FROM customers ORDER BY CustomerName";
     $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql),MYSQLI_ASSOC);
     return $result;
 }
@@ -23,7 +23,7 @@ function selecteerKlanten($databaseConnection) {
 
 function selecteer1Klant($id, $databaseConnection) {
     $Result = null;
-    $Query = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2 FROM customers WHERE CustomerID=?";
+    $Query = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2, mail, PhoneNumber FROM customers WHERE CustomerID=?";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "i", $id);
