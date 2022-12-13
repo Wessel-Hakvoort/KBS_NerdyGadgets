@@ -40,11 +40,11 @@ if (isset($_POST["toevoegen"])) {
         <br>
         <label style='color: #1b1e21'>Email</label>
         <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>"
-               required/>
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
         <br>
         <label style='color: #1b1e21'>Telefoonnummer</label>
         <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>"
-               required/>
+               pattern="[+][0-9]{12}" required/>
         <br>
         <br><br>
         <button class='btn btn-dark' type="submit" name="toevoegen">
