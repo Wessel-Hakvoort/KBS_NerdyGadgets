@@ -70,7 +70,7 @@ function voegKlantToe($connection, $naam, $PhoneNumber, $straatEnHuisnummer, $wo
 //    "(CustomerName, PhoneNumber, DeliveryAddressLine2, PostalAddressLine2, mail)
 //VALUES(?, ?, ?, ?, ?)";
     $statement = mysqli_prepare($connection, $query);
-//    mysqli_stmt_bind_param($statement, 'sisss', $naam, $PhoneNumber, $straatEnHuisnummer, $woonplaats, $mail);
+//    mysqli_stmt_bind_param($statement, 'sisss', $naam, $PhoneNumber, $straatEnHuisnummer, $woonplaats, $mail);e
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }
