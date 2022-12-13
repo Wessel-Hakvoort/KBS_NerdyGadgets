@@ -553,3 +553,22 @@ ul#ul-class-price li {
         padding: 10px 30px;
     }
 }
+.popUpWinkelmand {
+    display: none;
+    position: absolute;
+    background-color: #0c5460;
+    border: 1px solid #0c5460;
+    border-radius: 5px;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 50rem;
+}
+.closeButtonWinkelmand{
+    background: none;
+    border: none;
+    position: absolute;
+    left: 97%;
+    top: 1%;
+    color: white;
+}

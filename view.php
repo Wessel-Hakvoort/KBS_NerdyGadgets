@@ -4,12 +4,14 @@ include __DIR__ . "/header.php";
 
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
+$StockGroups = getStockItemGroups($_GET['id'], $databaseConnection);
+$StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
 ?>
 
 <!--fixed reload van pagina met silent submission-->
 <script>
-    if (window.history.replaceState ) {
-        window.history.replaceState(null,null,window.location.href);
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 </script>
 <div id="CenteredContent">
@@ -70,14 +72,14 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     </div>
                     <?php
                 }
-            } elseif(isset($StockItem['BackupImagePath'])) {
+            } elseif (isset($StockItem['BackupImagePath'])) {
                 ?>
                 <div id="ImageFrame"
                      style="background-image: url(' <?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
                 <?php
             }
             ?>
-
+            `
             <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
@@ -90,18 +92,17 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                         </p>
                         <h6> Inclusief BTW </h6>
                         <form method="post">
-                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>" hidden>
+                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
+                                   hidden>
                             <input class="button-37" type="submit" name="submit" value="In winkelmandje">
-
                         </form>
                         <?php
                         if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                             $stockItemID = $_POST["stockItemID"];
-                            if ($StockItem['QuantityOnHand'] <= 0){
-                             print "Er is niet genoeg voorraad";
-                            }else {
+                            if ($StockItem['QuantityOnHand'] <= 0) {
+                                print "Er is niet genoeg voorraad";
+                            } else {
                                 addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                                $cart = getCart();
                                 print "<p>Toegevoegd aan winkelwagen! <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
                             }
                         } ?>
@@ -151,8 +152,41 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             }
             ?>
         </div>
+        <div style="width: 40rem;">
+            <h2 class="StockItemNameViewSize StockItemName">
+                <?php print $StockItem['StockItemName']; ?>
+            </h2>
+            <div id="ImageFrame"
+                 style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+            <p class="StockItemPriceText">
+                <b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
+                <form method="post">
+                    <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
+                           hidden>
+                    <input class="button-37" style="width: 15rem;" type="submit" name="submit" value="In winkelmandje">
+                </form>
+            </p>
+        </div>
+        <div style="color: #0f6674">
+            <?php
+            print_r($StockGroups);
+            print" <br> ";
+            print_r($StockGroupsItems);
+            print" <br> ";
+            print_r($StockItem);
+
+            for ($b = 0; $b <= 2; $b++) {
+
+                print "";
+
+                ?>
+
+            <?php } ?>
+        </div>
         <?php
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
+
+
