@@ -2,10 +2,11 @@
 // Opmaakt voorraadtekst als voorraad meer dan 1000 is komt de tekst Ruime voorraad beschikbaar anders wordt de voorraad geshowed
 function getVoorraadTekst($actueleVoorraad)
 {
-    if ($actueleVoorraad >= 1000) {
-        return "Ruime voorraad beschikbaar.";
+    if ($actueleVoorraad < 1000) {
+        echo "<p style='color: red'>Wees snel! nog maar $actueleVoorraad beschikbaar!</p>";
     } else {
-        return "Voorraad: $actueleVoorraad";
+        echo "Ruime voorraad beschikbaar.";
+
     }
 }
 
