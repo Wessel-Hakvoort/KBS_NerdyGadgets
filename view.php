@@ -103,7 +103,8 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                                 print "Er is niet genoeg voorraad";
                             } else {
                                 addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
-                                print "<p>Toegevoegd aan winkelwagen! <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
+                                $naam = $StockItem["StockItemName"];
+                                print "<script type='text/javascript'>alert('$naam is toegevoegd aan de winkelwagen')</script>";
                             }
                         } ?>
                     </div>
@@ -153,78 +154,80 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
             ?>
         </div>
         <hr>
-        <div id="AanbevolenProducten">
+        <div>
             <?php
             $i = 0;
             foreach ($StockGroupsItems as $key => $ItemID) {
+
                 $i++;
                 $StockItem = getStockItem($ItemID["StockItemID"], $databaseConnection);
                 ?>
-                <div style="width: 40rem; ">
-                    <h2 class="StockItemNameViewSize StockItemName">
-                        <?php print $StockItem["StockItemName"]; ?>
-                    </h2>
-                    <?php
-                    if (isset($StockItemImage)) {
-                        // één plaatje laten zien
-                        if (count($StockItemImage) == 1) {
+                <a  href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
+                    <div style="width: 20rem; float: left;">
+                        <h2 class="StockItemNameViewSize StockItemName">
+                            <?php print $StockItem["StockItemName"]; ?>
+                        </h2>
+                        <?php
+                        if (isset($StockItemImage)) {
+                            // één plaatje laten zien
+                            if (count($StockItemImage) == 1) {
+                                ?>
+                                <div id="ImageFrame"
+                                     style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                                <?php
+                            } else if (count($StockItemImage) >= 2) { ?>
+                                <!-- meerdere plaatjes laten zien -->
+                                <div id="ImageFrame">
+                                    <div id="ImageCarousel" class="carousel slide" data-interval="false">
+                                        <!-- Indicators -->
+                                        <ul class="carousel-indicators">
+                                            <?php for ($i = 0; $i < count($StockItemImage); $i++) {
+                                                ?>
+                                                <li data-target="#ImageCarousel"
+                                                    data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
+                                                <?php
+                                            } ?>
+                                        </ul>
+
+                                        <!-- slideshow -->
+                                        <div class="carousel-inner">
+                                            <?php for ($i = 0; $i < count($StockItemImage); $i++) {
+                                                ?>
+                                                <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
+                                                    <img src="Public/StockItemIMG/<?php print $StockItemImage[$i]['ImagePath'] ?>">
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+
+                                        <!-- knoppen 'vorige' en 'volgende' -->
+                                        <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
+                                            <span class="carousel-control-prev-icon"></span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
+                                            <span class="carousel-control-next-icon"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        } elseif (isset($StockItem['BackupImagePath'])) {
                             ?>
                             <div id="ImageFrame"
-                                 style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
-                            <?php
-                        } else if (count($StockItemImage) >= 2) { ?>
-                            <!-- meerdere plaatjes laten zien -->
-                            <div id="ImageFrame">
-                                <div id="ImageCarousel" class="carousel slide" data-interval="false">
-                                    <!-- Indicators -->
-                                    <ul class="carousel-indicators">
-                                        <?php for ($i = 0; $i < count($StockItemImage); $i++) {
-                                            ?>
-                                            <li data-target="#ImageCarousel"
-                                                data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
-                                            <?php
-                                        } ?>
-                                    </ul>
-
-                                    <!-- slideshow -->
-                                    <div class="carousel-inner">
-                                        <?php for ($i = 0; $i < count($StockItemImage); $i++) {
-                                            ?>
-                                            <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
-                                                <img src="Public/StockItemIMG/<?php print $StockItemImage[$i]['ImagePath'] ?>">
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                                    <!-- knoppen 'vorige' en 'volgende' -->
-                                    <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
-                                        <span class="carousel-control-prev-icon"></span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
-                                        <span class="carousel-control-next-icon"></span>
-                                    </a>
-                                </div>
-                            </div>
+                                 style="background-image: url(' <?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
                             <?php
                         }
-                    } elseif (isset($StockItem['BackupImagePath'])) {
                         ?>
-                        <div id="ImageFrame"
-                             style="background-image: url(' <?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
-                        <?php
-                    }
-                    ?>
-                    <p class="StockItemPriceText">
-                        <b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
-                    <form method="post">
-                        <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
-                               hidden>
-                        <input class="button-37" style="width: 15rem;" type="submit" name="submit"
-                               value="In winkelmandje">
-                    </form>
-                    </p>
-                </div>
-                <br>
+                        <p class="StockItemPriceText">
+                            <b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
+                        <form method="post">
+                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
+                                   hidden>
+                            <input class="button-37" style="width: 15rem;" type="submit" name="submit"
+                                   value="In winkelmandje">
+                        </form>
+                        </p>
+                    </div>
+                </a>
             <?php } ?>
         </div>
         <?php

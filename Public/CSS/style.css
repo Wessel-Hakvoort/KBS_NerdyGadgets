@@ -281,12 +281,10 @@ ul#ul-class-navigation li {
     font-size: 20px;
 }
 #AanbevolenProducten {
-    background-color: #086972;
     width: 100%;
-    float: left;
+    align-items: center;
     padding: 10px;
     margin-top: 10px;
-    border: 1px solid;
     font-family: pt-sans, sans-serif;
     font-size: 20px;
 }

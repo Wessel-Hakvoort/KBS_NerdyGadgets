@@ -106,7 +106,7 @@ function getStockItemGroups ($id, $databaseConnection){
 }}
 
 function getStockItemStockGroups ($id, $databaseConnection){
-    $Query = "SELECT StockItemID FROM nerdygadgets.stockitemstockgroups WHERE StockGroupID = ? LIMIT 3;";
+    $Query = "SELECT StockItemID FROM nerdygadgets.stockitemstockgroups WHERE StockGroupID = ? LIMIT 5;";
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
