@@ -95,3 +95,23 @@ function getStockItemImage($id, $databaseConnection) {
 
     return $Result;
 }
+
+function getStockItemGroups ($id, $databaseConnection){
+    $Query = "SELECT StockGroupID FROM nerdygadgets.stockitemstockgroups WHERE StockItemID = $id LIMIT 1;";
+    $result = mysqli_query($databaseConnection, $Query);
+    while ($row = mysqli_fetch_array($result)) {
+        $StockItemID = $row['StockGroupID'];
+
+    return $StockItemID;
+}}
+
+function getStockItemStockGroups ($id, $databaseConnection){
+    $Query = "SELECT StockItemID FROM nerdygadgets.stockitemstockgroups WHERE StockGroupID = ? LIMIT 5;";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+
+    return $Result;
+}
