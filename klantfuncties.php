@@ -1,7 +1,7 @@
 <?php
 include 'databasefuncties.php';
 
-$gegevens = array("CustomerID" => 0, "CustomerName" => "", "DeliveryAddressLine2" => "", "PostalAddressLine2" => "", "melding" => "");
+$gegevens = array("CustomerID" => 0, "CustomerName" => "", "DeliveryAddressLine2" => "", "PostalAddressLine2" => "", "mail" => "", "PhoneNumber" => "", "melding" => "");
 
 function getCustomerID()
 {
@@ -22,10 +22,10 @@ function saveCustomerID($id)
 
 
 //functie voor opvragen alle klanten
-function alleKlantenOpvragen()
+function alleKlantenOpvragen($start)
 {
     $connection = maakVerbinding();
-    $klanten = selecteerKlanten($connection);
+    $klanten = selecteerKlanten($connection,$start);
     sluitVerbinding($connection);
     return $klanten;
 }
@@ -55,9 +55,9 @@ function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats, $mai
 
 
     $statement = mysqli_prepare($connection, "INSERT INTO customers 
-    (CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, PhoneNumber, FaxNumber, WebsiteURL, DeliveryAddressLine2, DeliveryPostalCode, PostalAddressLine1, PostalAddressLine2, PostalPostalCode,LastEditedBy,ValidFrom, mail, PhoneNumber) 
-VALUES(?, 1, 3, 1001, 3, 242, 10, '2022-01-01', 0.000, 0, 0, 7, '(088) 469-9911', '(088) 469-9911', 'https://www.windesheim.nl', ?, 00000, 'PO Box 6155', ?, 00000, 1, '2022-01-01 00:00:00', ?, ?)");
-    mysqli_stmt_bind_param($statement, 'ssssi', $naam, $straatEnHuisnummer, $woonplaats);
+    (CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, FaxNumber, WebsiteURL, DeliveryAddressLine2, DeliveryPostalCode, PostalAddressLine1, PostalAddressLine2, PostalPostalCode,LastEditedBy,ValidFrom, mail, PhoneNumber) 
+VALUES(?, 1, 3, 1001, 3, 242, 10, '2022-01-01', 0.000, 0, 0, 7, '(088) 469-9911', 'https://www.windesheim.nl', ?, 00000, 'PO Box 6155', ?, 00000, 1, '2022-01-01 00:00:00', ?, ?)");
+    mysqli_stmt_bind_param($statement, 'ssssi', $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }
@@ -266,12 +266,27 @@ function selecteerOrders($databaseConnection)
     return $result;
 }
 
-function alleOrdersOpvragen()
+function selecteerAdminBeheer($databaseConnection, $customerid)
 {
-    $connection = maakVerbinding();
-    $orders = selecteerOrders($connection);
-    sluitVerbinding($connection);
-    return $orders;
+    $sql = "SELECT OrderID, OrderDate, TotalPrice FROM orders WHERE CustomerID = '$customerid' ORDER BY OrderDate DESC;";
+    $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+
+function alleOrdersOpvragen($customerid)
+{
+    if ($_SESSION["mail"] != "admin") {
+
+        $connection = maakVerbinding();
+        $orders = selecteerOrders($connection);
+        sluitVerbinding($connection);
+        return $orders;
+    } elseif ($_SESSION["mail"] == "admin") {
+        $connection = maakVerbinding();
+        $orders = selecteerAdminBeheer($connection, $customerid);
+        sluitVerbinding($connection);
+        return $orders;
+    }
 }
 
 function selecteerOrderslines($databaseConnection, $OrderID)
@@ -293,4 +308,83 @@ function verwijderUser($connection, $userid) {
         $statement = mysqli_prepare($connection, "DELETE FROM users WHERE userid = $userid;");
         mysqli_stmt_execute($statement);
         return mysqli_stmt_affected_rows($statement) == 1;
+}
+
+function gegevensOphalenAdmin($connection, $search)
+{
+    //zoekt klant gegevens op basis van userid session
+    $result = mysqli_query($connection, "SELECT count(CustomerID) FROM customers;");
+    while ($row = mysqli_fetch_array($result)) {
+        $CustomerID = $row['count(CustomerID)'];
+    }
+    $result = mysqli_query($connection, "SELECT count(OrderID) FROM orders;");
+    while ($row = mysqli_fetch_array($result)) {
+        $OrderID = $row['count(OrderID)'];
+    }
+    $result = mysqli_query($connection, "SELECT count(userid) FROM users;");
+    while ($row = mysqli_fetch_array($result)) {
+        $userid = $row['count(userid)'];
+    }
+    $result = mysqli_query($connection, "SELECT count(StockItemID) FROM stockitems;");
+    while ($row = mysqli_fetch_array($result)) {
+        $StockItemID = $row['count(StockItemID)'];
+    }
+    print $$search;
+}
+
+function selecteerOrdersAdmin($databaseConnection, $start)
+{
+    $userid = $_SESSION["id"];
+    $sql = "SELECT OrderID, CustomerID, OrderDate, TotalPrice FROM orders ORDER BY OrderDate DESC LIMIT $start, 25;";
+    $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+
+function alleOrdersOpvragenAdmin($start)
+{
+    $connection = maakVerbinding();
+    $orders = selecteerOrdersAdmin($connection, $start);
+    sluitVerbinding($connection);
+    return $orders;
+}
+
+function selecteerOrderslinesAdmin($databaseConnection, $OrderID)
+{
+    $sql = "SELECT StockItemID, Description, Quantity, Unitprice, TaxRate FROM orderlines WHERE OrderID = $OrderID;";
+    $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+function alleOrderslinesOpvragenAdmin($OrderID)
+{
+    $connection = maakVerbinding();
+    $orders = selecteerOrderslinesAdmin($connection, $OrderID);
+    sluitVerbinding($connection);
+    return $orders;
+}
+
+function gegevensOphalenOrderID($connection, $OrderID, $search)
+{
+    //zoekt klant gegevens op basis van userid session
+    $result = mysqli_query($connection, "SELECT CustomerID, OrderDate, TotalPrice FROM orders WHERE OrderID = $OrderID");
+    while ($row = mysqli_fetch_array($result)) {
+        $CustomerID = $row['CustomerID'];
+        $OrderDate = $row['OrderDate'];
+        $TotalPrice = $row['TotalPrice'];
+    }
+    print $$search;
+}
+
+function gegevensOphalenCustomerID($connection, $CustomerID, $search)
+{
+    //zoekt klant gegevens op basis van userid session
+    $result = mysqli_query($connection, "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2, Mail, PhoneNumber FROM customers WHERE CustomerID = $CustomerID");
+    while ($row = mysqli_fetch_array($result)) {
+        $CustomerID = $row['CustomerID'];
+        $CustomerName= $row['CustomerName'];
+        $DeliveryAddressLine2 = $row['DeliveryAddressLine2'];
+        $PostalAddressLine2 = $row['PostalAddressLine2'];
+        $Mail = $row['Mail'];
+        $PhoneNumber = $row['PhoneNumber'];
+    }
+    print $$search;
 }

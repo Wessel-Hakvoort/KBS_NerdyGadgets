@@ -14,8 +14,8 @@ function maakVerbinding() {
 
 
 //alle klanten selecteren uit database
-function selecteerKlanten($databaseConnection) {
-    $sql = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2, mail, PhoneNumber FROM customers ORDER BY CustomerName";
+function selecteerKlanten($databaseConnection, $start) {
+    $sql = "SELECT CustomerID, CustomerName, DeliveryAddressLine2, PostalAddressLine2, mail, PhoneNumber FROM customers ORDER BY CustomerName ASC LIMIT $start, 25;";
     $result = mysqli_fetch_all(mysqli_query($databaseConnection, $sql),MYSQLI_ASSOC);
     return $result;
 }
