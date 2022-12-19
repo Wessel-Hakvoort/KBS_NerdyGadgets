@@ -1,40 +1,48 @@
 <?php
 
-function getVerlanglijstje()
+function databaseVerlanglijstje($connection, $stockItemID)
 {
-    if (isset($_SESSION['verlanglijstje'])) {               //controleren of verlanglijstje al bestaat
-        $verlanglijstje = $_SESSION['verlanglijstje'];                  //zo ja:  ophalen
-    } else {
-        $verlanglijstje = array();                            //zo nee: dan een nieuwe (nog lege) array
+    if ($_SESSION["loggedin"] == TRUE) {
+        $userid = $_SESSION["id"];
+        //zoekt klant gegevens op basis van userid session
+        $result = mysqli_query($connection, "SELECT CustomerID FROM customers WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = $userid);");
+        while ($row = mysqli_fetch_array($result)) {
+            $CustomerID = $row['CustomerID'];
+            $statement = mysqli_prepare($connection, "INSERT INTO verlanglijstje (CustomerID, StockItemID) VALUES('$CustomerID', '$stockItemID')");
+            mysqli_stmt_execute($statement);
+            return mysqli_stmt_affected_rows($statement) == 1;
+        }
     }
-    return $verlanglijstje;                               // resulterend verlanglijstje terug naar aanroeper functie
 }
 
 
-function saveVerlanglijstje($verlanglijstje)
+function deleteFromVerlanglijstje($connection, $stockItemID)
 {
-    $_SESSION["verlanglijstje"] = $verlanglijstje;// werk de "gedeelde" $_SESSION["verlanglijstje"] bij met de meegestuurde gegevens
+    if ($_SESSION["loggedin"] == TRUE) {
+        $userid = $_SESSION["id"];
+        //zoekt klant gegevens op basis van userid session
+        $result = mysqli_query($connection, "SELECT CustomerID FROM customers WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = $userid);");
+        while ($row = mysqli_fetch_array($result)) {
+            $CustomerID = $row['CustomerID'];
+            $statement = mysqli_prepare($connection, "DELETE FROM verlanglijstje WHERE CustomerID = '$CustomerID' AND StockItemID = '$stockItemID'");
+            mysqli_stmt_execute($statement);
+            return mysqli_stmt_affected_rows($statement) == 1;
+        }
+    }
 }
 
+//credits naar Tiemco die de array werkend heeft gemaakt
+function selectVerlanglijst($connection) {
+    if ($_SESSION["loggedin"] == TRUE) {
+        $userid = $_SESSION["id"];
 
-function addProductToVerlanglijstje($stockItemID)
-{
-    $verlanglijstje = getVerlanglijstje();                          // eerst de huidige verlanglijst ophalen
+        $customerQuery = mysqli_query($connection, "SELECT CustomerID FROM customers WHERE CustomerID = (SELECT CustomerID FROM users WHERE userid = '$userid' AND CustomerID IS NOT NULL);");
+        $customer = mysqli_fetch_array($customerQuery);
+        $customerID = $customer["CustomerID"];
 
-    if (array_key_exists($stockItemID, $verlanglijstje)) {  //controleren of $stockItemID(=key!) al in array staat
-        $verlanglijstje[$stockItemID] += 1;                   //zo ja: aantal met 1 verhogen
-    } else {
-        $verlanglijstje[$stockItemID] = 1;                    //zo nee: key toevoegen en aantal op 1 zetten.
+        $verlanglijstje = $connection->query("SELECT StockItemID FROM verlanglijstje WHERE CustomerID='$customerID'");
+        $result = $verlanglijstje->fetch_all();
+
+       return $result;
     }
-
-    saveVerlanglijstje($verlanglijstje);                            // werk de "gedeelde" $_SESSION["verlanglijstje"] bij met de bijgewerkte verlanglijst
-}
-
-function deleteProductFromVerlanglijstje($stockItemID){
-    $verlanglijstje = getVerlanglijstje();
-    print $stockItemID;
-    if (array_key_exists($stockItemID, $verlanglijstje)) {
-        unset($verlanglijstje[$stockItemID]);
-    }
-    saveCart($verlanglijstje);
 }

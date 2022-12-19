@@ -268,6 +268,7 @@ function loginUser($connection, $email, $password)
         echo "<script>window.location = 'account.php';</script>";
     } else {
         print "<h5 style='text-align:center;color:darkred'>Uw wachtwoord of email is onjuist!</h5>";
+        $_SESSION["loggedin"] = FALSE;
     }
 }
 

@@ -44,7 +44,7 @@ if (isset($_POST["toevoegen"])) {
         <br>
         <label style='color: #1b1e21'>Telefoonnummer</label>
         <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>"
-               pattern="[+][0-9]{12}" required/>
+               required/>
         <br>
         <br><br>
         <button class='btn btn-dark' type="submit" name="toevoegen">

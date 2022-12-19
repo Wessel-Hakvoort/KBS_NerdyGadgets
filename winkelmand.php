@@ -7,7 +7,6 @@ $cart = getCart();
 
 $StockItem = getStockItem($cart, $databaseConnection);
 $StockItemImage = getStockItemImage($cart, $databaseConnection);
-
 ?>
 
 

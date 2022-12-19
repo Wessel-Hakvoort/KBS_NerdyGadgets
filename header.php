@@ -65,10 +65,9 @@ include __DIR__ . "/FunctionsBrowse.php";
                 <?php
                 if (isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] == TRUE )) {
                     ?>
-                    <b><a style="padding-left:25px;" href="clear.php" class="HrefDecoration">Uitloggen</a>
-                    <a style="padding-left:20px;" href="account.php" class="HrefDecoration">Mijn account</a></b>
+                    <a style="padding-left:20px;" href="account.php" class="HrefDecoration"><i class="fa-solid fa-user"></i></a>
                 <?php } else { ?>
-                    <b><a style="padding-left:25px;" href="login.php" class="HrefDecoration">Inloggen</a></b>
+                    <b><a href="login.php" class="HrefDecoration"><i class="fa-solid fa-user"></i></a></b>
                 <?php } ?>
             </li>
             <li>
