@@ -1,4 +1,6 @@
 # KBS_NerdyGadgets
+
+Alleen view.php is aangepast!!
 #raspberrypi----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `sensor` (
