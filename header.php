@@ -25,6 +25,7 @@ include __DIR__ . "/FunctionsBrowse.php";
     <script src="Public/JS/resizer.js"></script>
     <script src="https://kit.fontawesome.com/58692e44a1.js" crossorigin="anonymous"></script>
 
+
     <!-- Style sheets-->
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
@@ -78,6 +79,7 @@ include __DIR__ . "/FunctionsBrowse.php";
                 <a style="padding-left:25px; padding-right:25px; font-size:25px;" href="browse.php"
                    class="HrefDecoration"><i class="fas fa-search search"></i></a>
             </li>
+
 
         </ul>
         <!-- einde code voor US3 zoeken -->

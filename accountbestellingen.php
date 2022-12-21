@@ -6,7 +6,7 @@ if (empty($_SESSION["loggedin"])) {
     echo "<script>window.location = 'login.php';</script>";
 }
 if ($_SESSION["mail"] == "admin") {
-    echo "<script>window.location = 'BekijkenOverzicht.php';</script>";
+    echo "<script>window.location = 'admin.php';</script>";
 }
 if ($_SESSION["loggedin"] == TRUE) {
     ?>
@@ -53,7 +53,7 @@ if ($_SESSION["loggedin"] == TRUE) {
     </div>
     <div style="color: #053d42; margin-left: 19%; width: 81%;">
         <h3 style="font-size:40px">Mijn bestellingen</h3>
-        <br>
+        <hr>
         <table>
             <thead>
             <tr style='color: #1b1e21'>
@@ -64,6 +64,7 @@ if ($_SESSION["loggedin"] == TRUE) {
             </tr>
             </thead>
             <?php
+            $orders = alleOrdersOpvragen("niks");
             foreach ($orders as $order) { ?>
                 <tr style="border-bottom:1pt solid black;">
                     <?php

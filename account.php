@@ -6,7 +6,7 @@ if (empty($_SESSION["loggedin"])) {
     echo "<script>window.location = 'login.php';</script>";
 }
 if ($_SESSION["mail"] == "admin") {
-    echo "<script>window.location = 'BekijkenOverzicht.php';</script>";
+    echo "<script>window.location = 'admin.php';</script>";
 }
 if ($_SESSION["loggedin"] == TRUE) {
     ?>
@@ -51,7 +51,7 @@ if ($_SESSION["loggedin"] == TRUE) {
         </div>
         <div style="color: #053d42; margin-left: 19%; width: 81%;">
             <h3 style="font-size:40px">Mijn account</h3>
-            <br>
+            <hr>
             <?php
             ?>
             <h4>Klantnummer:
