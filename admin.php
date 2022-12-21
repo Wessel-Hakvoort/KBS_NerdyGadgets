@@ -24,7 +24,9 @@ if ($_SESSION["loggedin"] == TRUE) {
                         class="fa-regular fa-star"></i> Orders</a><hr>
                 <a style="color: white; padding-left:10px; font-size:25px;" href="adminklanten.php"
                    class="HrefDecoration"><i
-                        class="fa-regular fa-star"></i> Klanten</a>
+                        class="fa-regular fa-star"></i> Klanten</a><hr>
+                <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
             <?php }
             ?>
         </div>

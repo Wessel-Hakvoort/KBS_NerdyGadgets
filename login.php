@@ -30,8 +30,6 @@ include __DIR__ . "/header.php";
         </h3>
     </form>
 </div>
-<p style="color: black">admin<br>admin<br><br></br>philipgorgievski@gmail.com<br>12345678</p>
-
 <?php
 include __DIR__ . "/footer.php";
 ?>
