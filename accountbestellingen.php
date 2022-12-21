@@ -22,9 +22,33 @@ if ($_SESSION["loggedin"] == TRUE) {
                 <a style="padding-left:10px; font-size:25px;" href="accountbestellingen.php" class="HrefDecoration"><i <i
                             class="fa-regular fa-clipboard"></i></i> Bestellingen</a>
                 <hr>
-                <a style="padding-left:10px; font-size:25px;" href="accountverlangslijstje.php" class="HrefDecoration"><i
+                <a style="padding-left:10px; font-size:25px;" href="accountverlanglijstje.php" class="HrefDecoration"><i
                             class="fa-regular fa-heart"></i> Verlanglijstje</a>
-                <?php } ?>
+                <hr>
+                <a style="padding-left:10px; font-size:25px;" href="accountaanbevolen.php" class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Aanbevolen</a>
+                <hr>
+                <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration"><i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
+
+            <?php }
+            if ($_SESSION["mail"] == "admin") {
+                ?>
+                <a style="color: white; padding-left:10px; font-size:25px;" href="adminoverzicht.php"
+                   class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Home</a><hr>
+                <a style="color: white; padding-left:10px; font-size:25px;" href="adminorders.php"
+                   class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Orders</a><hr>
+                <a style="color: white; padding-left:10px; font-size:25px;" href="adminklanten.php"
+                   class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Klanten</a><hr>
+                <a style="color: white; padding-left:10px; font-size:25px;" href="adminaccounts.php"
+                   class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Accounts</a><hr>
+                <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration"><i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
+            <?php }
+            $orders = alleOrdersOpvragen();
+            ?>
         </div>
     </div>
     <div style="color: #053d42; margin-left: 19%; width: 81%;">

@@ -51,16 +51,28 @@ function klantGegevensToevoegen($gegevens)
 }
 
 
-function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber) {
+
+//function voegKlantToe($connection, $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber) {
+//    $query = "INSERT INTO customers
+//    (CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, PhoneNumber, FaxNumber, WebsiteURL, DeliveryAddressLine2, DeliveryPostalCode, PostalAddressLine1, PostalAddressLine2, PostalPostalCode,LastEditedBy,ValidFrom, mail)
+//VALUES(?, 1, 3, 1001, 3, 242, 10, '2022-01-01', 0.000, 0, 0, 7, '(088) 469-9911', '(088) 469-9911', 'https://www.windesheim.nl', ?, 00000, 'PO Box 6155', ?, 00000, 1, '2022-01-01 00:00:00', ?, ?)";
+//    $statement = mysqli_prepare($connection, $query);
+//    mysqli_stmt_bind_param($statement, 'ssssi', $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber);
+//    mysqli_stmt_execute($statement);
+//    return mysqli_stmt_affected_rows($statement) == 1;
+//}
 
 
+
+function voegKlantToe($connection, $naam, $PhoneNumber, $straatEnHuisnummer, $woonplaats, $mail) {
     $statement = mysqli_prepare($connection, "INSERT INTO customers 
     (CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, FaxNumber, WebsiteURL, DeliveryAddressLine2, DeliveryPostalCode, PostalAddressLine1, PostalAddressLine2, PostalPostalCode,LastEditedBy,ValidFrom, mail, PhoneNumber) 
 VALUES(?, 1, 3, 1001, 3, 242, 10, '2022-01-01', 0.000, 0, 0, 7, '(088) 469-9911', 'https://www.windesheim.nl', ?, 00000, 'PO Box 6155', ?, 00000, 1, '2022-01-01 00:00:00', ?, ?)");
-    mysqli_stmt_bind_param($statement, 'ssssi', $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber);
+    mysqli_stmt_bind_param($statement, 'sssss', $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }
+
 
 function verwijderKlant($connection, $id)
 {
@@ -81,7 +93,6 @@ function klantGegevensUpdaten($gegevens)
     sluitVerbinding($connection);
     return $gegevens;
 }
-
 
 
 function gegevensOpslaan($connection, $id, $naam, $straatEnHuisnummer, $woonplaats, $mail, $PhoneNumber) {
@@ -255,6 +266,7 @@ function loginUser($connection, $email, $password)
         echo "<script>window.location = 'account.php';</script>";
     } else {
         print "<h5 style='text-align:center;color:darkred'>Uw wachtwoord of email is onjuist!</h5>";
+        $_SESSION["loggedin"] = FALSE;
     }
 }
 
