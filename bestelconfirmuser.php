@@ -28,6 +28,11 @@ if (array_sum($cart) > 0) {
         $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
         voegOrderToe($databaseConnection, totaal_prijs($cart, $databaseConnection));
         voegOrderLineToe($databaseConnection);
+        ?>
+        <script>
+            window.open("https://www.ideal.nl/demo/qr/?app=ideal", "_blank");
+        </script>
+            <?php
     }
     ?>
 
