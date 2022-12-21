@@ -107,6 +107,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
 
                             $customerid = ophalenCustomerID($databaseConnection);
                             $result = mysqli_query($databaseConnection, "SELECT StockItemID FROM verlanglijstje WHERE CustomerID = '$customerid' AND StockItemID = '$stockItemID'");
+
                             if (mysqli_num_rows($result) > 0) {
                                 // Values already exist in the table, so don't insert them
                                 echo "<h5>Item staat al in <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
@@ -115,15 +116,6 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                             } else {
                                 print "<h5>Er is iets fout gegaan!</h5>";
                                 }
-//
-//                            if (databaseVerlanglijstje($databaseConnection, $stockItemID) == TRUE) { // maak gebruik van geïmporteerde functie
-//                                print "<h5> Toegevoegd aan <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
-//                            } elseif (databaseVerlanglijstje($databaseConnection, $stockItemID) == mysqli_error()) {
-//                                deleteFromVerlanglijstje($databaseConnection, $stockItemID);
-//                                print "<h5>Verwijderd uit <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
-//                            } else {
-//
-//                            }
                         }
                     } else {
                         print "<h5 style='position: absolute; top:5vh; width: 15vw; right: 0vh;'><a href='login.php' style='color: #0b95a2'><u>Log eerst in</u></a> om een item aan uw verlanglijstje toe te voegen!</h5>";
@@ -148,14 +140,14 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                     </form>
                     <?php
                     if (isset($_POST["submit"])) {              // zelfafhandelend formulier
-                        $stockItemID = $_POST["stockItemID"];
+                        $stockItemID = $StockItem["StockItemID"];
                         if ($StockItem['QuantityOnHand'] <= 0) {
                             print "Er is niet genoeg voorraad";
                         } else {
                             addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
                             $cart = getCart();
                             $naam = $StockItem["StockItemName"];
-                            print "<script type='text/javascript'>alert('$naam is toegevoegd aan de winkelwagen')</script>";
+                            print "<p>Toegevoegd aan <a href='winkelmand.php' style='color: #0b95a2'>winkelwagen!</a>  <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
                         }
                     } ?>
                 </div>
@@ -210,6 +202,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
 
                 $i++;
                 $StockItem = getStockItem($ItemID["StockItemID"], $databaseConnection);
+                $StockItemImage = getStockItemImage($ItemID['StockItemID'], $databaseConnection);
                 ?>
                 <a  href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
                     <div style="width: 20rem; float: left;">
@@ -268,12 +261,9 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                         ?>
                         <p class="StockItemPriceText">
                             <b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
-                        <form method="post">
-                            <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
-                                   hidden>
-                            <input class="button-37" style="width: 15rem;" type="submit" name="submit"
-                                   value="In winkelmandje">
-                        </form>
+                        <button class="button-37" href="view.php?id=<?php print $StockItem['StockItemID']; ?>">
+                            Naar product gaan
+                        </button>
                         </p>
                     </div>
                 </a>
@@ -284,6 +274,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
+
 
 
 
