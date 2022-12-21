@@ -144,7 +144,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                     <form method="post">
                         <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"]) ?>"
                                hidden>
-                        <input class="button-37" onclick="<?php ToevoegenWinkelmand($StockItem["StockItemID"])?>" type="submit" name="submit" value="In winkelmandje">
+                        <input class="button-37" type="submit" name="submit" value="In winkelmandje">
                     </form>
                     <?php
                     if (isset($_POST["submit"])) {              // zelfafhandelend formulier
