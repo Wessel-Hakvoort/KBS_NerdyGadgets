@@ -165,6 +165,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
 
                 $i++;
                 $StockItem = getStockItem($ItemID["StockItemID"], $databaseConnection);
+                $StockItemImage = getStockItemImage($ItemID['StockItemID'], $databaseConnection);
                 ?>
                 <a  href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
                     <div style="width: 20rem; float: left;">
