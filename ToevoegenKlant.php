@@ -7,7 +7,7 @@
 <?php
 
 include __DIR__ . "/header.php";
-if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
+if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"]))) {
     echo "<script>window.location = 'login.php';</script>";
 }
 //gegevens ophalen van de klant door middel van POST
@@ -27,19 +27,20 @@ if (isset($_POST["toevoegen"])) {
     <form method="post">
         <!--    klantgegevens worden opgesomd en laten zien. Hier kan het ingevuld worden in de tekstschermpjes-->
         <label style='color: #1b1e21'>Naam</label>
-        <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>" required/>
+        <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>"
+               required/>
         <br>
         <label style='color: #1b1e21'>Straat en huisnummer</label>
         <input type="text" name="DeliveryAddressLine2" value="<?php print($gegevens["DeliveryAddressLine2"]); ?>"
                required/>
         <br>
         <label style='color: #1b1e21'>Woonplaats</label>
-        <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>" required/>
-        <br>
-        <label style='color: #1b1e21'>E-mail</label>
-        <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>"
+        <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>"
                required/>
         <br>
+        <label style='color: #1b1e21'>Email</label>
+        <input type="text" name="mail" value="<?php print($gegevens["mail"]); ?>"
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
         <br>
         <label style='color: #1b1e21'>Telefoonnummer</label>
         <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>"

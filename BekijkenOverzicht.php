@@ -6,6 +6,9 @@
 <body>
 <?php //include 'klantfuncties.php';
 include __DIR__ . "/header.php";
+
+
+
 if (($_SESSION["mail"] != "admin") || (empty($_SESSION["loggedin"])))  {
     echo "<script>window.location = 'login.php';</script>";
 }
