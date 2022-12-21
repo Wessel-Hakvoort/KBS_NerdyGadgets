@@ -25,9 +25,6 @@ if ($_SESSION["loggedin"] == TRUE) {
                 <a style="padding-left:10px; font-size:25px;" href="accountverlanglijstje.php" class="HrefDecoration"><i
                             class="fa-regular fa-heart"></i> Verlanglijstje</a>
                 <hr>
-                <a style="padding-left:10px; font-size:25px;" href="accountaanbevolen.php" class="HrefDecoration"><i
-                            class="fa-regular fa-star"></i> Aanbevolen</a>
-                <hr>
                 <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration"><i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
 
             <?php }
@@ -47,7 +44,6 @@ if ($_SESSION["loggedin"] == TRUE) {
                             class="fa-regular fa-star"></i> Accounts</a><hr>
                 <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration"><i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
             <?php }
-            $orders = alleOrdersOpvragen();
             ?>
         </div>
     </div>
