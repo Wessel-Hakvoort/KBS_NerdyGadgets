@@ -128,6 +128,9 @@ if (array_sum($cart) > 0) {
                             </select>
                             <br>
                             <br>
+                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING" value="<?php if (isset($_POST['kortingscode'])) {
+                                print $_POST['kortingscode'];
+                            } ?>"/>
                             <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
                                     formmethod="post">
                                 Doorgaan naar betalen

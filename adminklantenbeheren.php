@@ -102,7 +102,7 @@ if ($_SESSION["loggedin"] == TRUE) {
             </form>
             <hr>
             <b>Geplaatste orders: </b><br><br>
-            <table>
+            <table style="font-size: 20px">
                 <thead>
                 <tr style='color: #1b1e21'>
                     <th style="border-bottom:1pt solid black;">Ordernummer:</th>
