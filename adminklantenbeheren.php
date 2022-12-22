@@ -35,6 +35,8 @@ if (isset($_POST["opslaan"])) {
     $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
     $gegevens["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
     $gegevens["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
+    $gegevens["mail"] = isset($_POST["mail"]) ? $_POST["mail"] : "";
+    $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
     $gegevens = klantGegevensUpdaten($gegevens);
     print ' <meta http-equiv="refresh" content="0">';
 }
@@ -58,6 +60,13 @@ if ($_SESSION["loggedin"] == TRUE) {
                 <a style="color: white; padding-left:10px; font-size:25px;" href="adminklanten.php"
                    class="HrefDecoration"><i
                             class="fa-regular fa-star"></i> Klanten</a>
+                <hr>
+                <a style="color: white; padding-left:10px; font-size:25px;" href="toggleConversiemaatregel.php"
+                   class="HrefDecoration"><i
+                            class="fa-regular fa-star"></i> Conversiemaatregelen</a>
+                <hr>
+                <a style="padding-left:10px; font-size:25px;" href="clear.php" class="HrefDecoration">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Uitloggen</a>
             <?php }
             ?>
         </div>

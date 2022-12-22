@@ -14,6 +14,11 @@ if ($_SESSION["loggedin"] == TRUE) {
     <div id="ResultsAreaWinkelmandje" class="Browse">
     <br>
     <?php
+    //if (array_key_exists('button1', $_POST)) {
+    //    verwijderKlant($databaseConnection, gegevensOphalenUser($databaseConnection, "CustomerID"));
+    //    verwijderUser($databaseConnection, $_SESSION["id"]);
+    //    session_destroy();
+    //}
     if ($_SESSION["mail"] != "admin") {
         ?>
         <a style="padding-left:10px; font-size:25px;" href="account.php" class="HrefDecoration"><i
@@ -67,7 +72,7 @@ if ($_SESSION["loggedin"] == TRUE) {
             <hr>
             <h4>Woonplaats: <?php gegevensOphalenUser($databaseConnection, "Woonplaats"); ?></h4>
             <hr>
-            <button class="button-6" role="button" type='submit' name="submit" value="submit" formmethod="post"
+            <button class="button-6" role="button" type='submit' name="button1" value="submit" formmethod="post" onclick="confirm('Neem contact op met de klantenservice om je account te verwijderen')"
             >Account verwijderen
             </button>
         </div>
