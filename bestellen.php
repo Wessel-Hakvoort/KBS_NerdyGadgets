@@ -45,8 +45,29 @@ if (array_sum($cart) > 0) {
                             print "- " . $naam['StockItemName'];
                             print " [" . $cart[$key];
                             print "x] " ?>
-                            <br><br>
+                            <br><br><hr>
                         <?php } ?></h4>
+                <?php
+                if (empty($_POST['kortingscode'])) {
+                ?>
+                    <form action="winkelmand.php" method="POST">
+                        <b><label for="kortingscode">Heeft u een kortingscode?</label></b>
+                        <input type="text" name="kortingscode" id="kortingscode" pattern="20KORTING" required>
+                        <br><br><button class="button-37" type="submit" name="Toepassen" value="Toepassen"
+                                formmethod="post">
+                            Kortingscode toepasssen
+                        </button>
+                        <?php
+                        }
+                        if (isset($_POST['kortingscode'])) {
+                            print "<h5>Uw kortingscode is succesvol toegevoegd.";
+                            print "</h5><br>";
+                            print "<h5>Kortingscode: " .$_POST['kortingscode'];
+                            print "</h5>";
+                        }
+                        ?>
+
+                    </form><hr>
                     <h4>Totaalprijs: <?php print "€" . totaal_prijs($cart, $databaseConnection); ?></h4>
                 </div>
 
@@ -78,6 +99,9 @@ if (array_sum($cart) > 0) {
                             </select>
                             <br>
                             <br>
+                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING" value="<?php if (isset($_POST['kortingscode'])) {
+                                print $_POST['kortingscode'];
+                            } ?>"/>
                             <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
                                     formmethod="post">
                                 Doorgaan naar betalen
@@ -100,6 +124,7 @@ if (array_sum($cart) > 0) {
                                 <option value="iDeal">iDeal</option>
                                 <option value="Afterpay">Afterpay</option>
                                 <option value="Paypal">Paypal</option>
+
                             </select>
                             <br>
                             <br>
