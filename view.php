@@ -107,6 +107,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
 
                             $customerid = ophalenCustomerID($databaseConnection);
                             $result = mysqli_query($databaseConnection, "SELECT StockItemID FROM verlanglijstje WHERE CustomerID = '$customerid' AND StockItemID = '$stockItemID'");
+
                             if (mysqli_num_rows($result) > 0) {
                                 // Values already exist in the table, so don't insert them
                                 echo "<h5>Item staat al in <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
@@ -115,15 +116,6 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                             } else {
                                 print "<h5>Er is iets fout gegaan!</h5>";
                                 }
-//
-//                            if (databaseVerlanglijstje($databaseConnection, $stockItemID) == TRUE) { // maak gebruik van geïmporteerde functie
-//                                print "<h5> Toegevoegd aan <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
-//                            } elseif (databaseVerlanglijstje($databaseConnection, $stockItemID) == mysqli_error()) {
-//                                deleteFromVerlanglijstje($databaseConnection, $stockItemID);
-//                                print "<h5>Verwijderd uit <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
-//                            } else {
-//
-//                            }
                         }
                     } else {
                         print "<h5 style='position: absolute; top:5vh; width: 15vw; right: 0vh;'><a href='login.php' style='color: #0b95a2'><u>Log eerst in</u></a> om een item aan uw verlanglijstje toe te voegen!</h5>";
