@@ -59,17 +59,55 @@ function deleteProductFromCart($stockItemID){
 }
 
 // berekend de totaal prijs van het winkelmandje
+$kortingscode2 = array('kortingcode', 'kortingscode2');
 function totaal_prijs($cart, $databaseConnection)
 {
-    //init variable $totaal_prijs
+    // init variable $totaal_prijs
     $totaal_prijs = 0;
-    foreach ($cart as $key => $value) {
-        // Haalt Informatie van item op
-        $StockItem = getStockItem($key, $databaseConnection);
-        // Veranderd tekst naar float
-        $StockItem_int = floatval($StockItem['SellPrice']);
-        $totaal_prijs += $cart[$key] * $StockItem_int;
+
+    // maak een kortingscode variabele aan
+    $kortingscode = "20KORTING";
+
+    $ingevoerde_kortingscode = 0;
+    if(isset($_POST['kortingscode'])) {  // lees de ingevoerde kortingscode in
+    $ingevoerde_kortingscode = $_POST['kortingscode'];
+
+
+}
+    // check of de ingevoerde kortingscode gelijk is aan de kortingscode variabele
+// alert
+    function function_alert($msg) {
+        echo "<script type='text/JavaScript'>";
+        echo "alert('$msg')";
+        echo "</script>";
     }
 
-    return sprintf("%.2f", round($totaal_prijs, 2));
+    if ($ingevoerde_kortingscode == $kortingscode) {
+        // als de codes gelijk zijn, geef 20% korting
+        $korting = 0.20;
+    } else {
+        // anders, geen korting
+        $korting = 0;
+    }
+    ?>
+
+<?php
+    // loop door de items in het winkelwagentje
+    foreach ($cart as $key => $value) {
+        // haal informatie op van het huidige item
+        $StockItem = getStockItem($key, $databaseConnection);
+
+        // verander de prijs van het item naar een float
+        $StockItem_int = floatval($StockItem['SellPrice']);
+
+        // voeg de prijs van het item toe aan de totaal prijs, rekening houdend met de korting
+        $totaal_prijs += $cart[$key] * $StockItem_int * (1 - $korting);
+    }
+return sprintf("%.2f", round($totaal_prijs, 2));
+    // geef de totaal prijs terug
+    return $totaal_prijs;
+
+
 }
+
+?>
