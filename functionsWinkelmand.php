@@ -62,7 +62,7 @@ function deleteProductFromCart($stockItemID){
 $kortingscode2 = array('kortingcode', 'kortingscode2');
 function totaal_prijs($cart, $databaseConnection)
 {
-    // init variable $totaal_prijs
+    // init variable $totaal_prijss
     $totaal_prijs = 0;
 
     // maak een kortingscode variabele aan

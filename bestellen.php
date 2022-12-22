@@ -60,7 +60,7 @@ if (array_sum($cart) > 0) {
                         <?php
                         }
                         if (isset($_POST['kortingscode'])) {
-                            print "<h5>Uw kortingscode is succesvol toegevoegd!";
+                            print "<h5>Uw kortingscode is succesvol toegevoegd.";
                             print "</h5><br>";
                             print "<h5>Kortingscode: " .$_POST['kortingscode'];
                             print "</h5>";
