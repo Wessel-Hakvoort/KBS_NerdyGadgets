@@ -96,7 +96,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                 <form method="post">
                     <button class="btn btn-outline-secondary" type="submit"
                             name="submitVerlanglijstje">
-                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-heart" style="color: red;"></i>
                     </button>
                 </form>
                 <?php
