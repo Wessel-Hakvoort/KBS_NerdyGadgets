@@ -86,7 +86,12 @@ include __DIR__ . "/header.php";
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
-                    <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
+
+<!--                    TOGGLE CONVERSIEMAATREGEL-->
+                    <?php $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'VOORRAAD'");
+                    if (mysqli_num_rows($result) > 0) { ?>
+                        <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
+                    <?php } ?>
                 </div>
                 <!--  coderegel 2 van User story: bekijken producten  -->
 
