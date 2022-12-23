@@ -173,7 +173,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                             addProductToCart($stockItemID); // maak gebruik van geïmporteerde functie uit cartfuncties.php
                             $cart = getCart();
                             $naam = $StockItem["StockItemName"];
-                            print "<p>Toegevoegd aan <a href='winkelmand.php' style='color: #0b95a2'>winkelwagen!</a>  <br> <a href='winkelmand.php' style='color: #0b95a2'>Klik hier om door te gaan </a></p>";
+                            print "<p>Toegevoegd aan <a href='winkelmand.php' style='color: #0b95a2'>winkelmand</a>!</p>";
                         }
                     } ?>
                 </div>
