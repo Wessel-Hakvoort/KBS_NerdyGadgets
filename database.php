@@ -115,3 +115,14 @@ function getStockItemStockGroups ($id, $databaseConnection){
 
     return $Result;
 }
+
+function getChillerStock ($id, $databaseConnection){
+    $Query = "SELECT IsChillerStock FROM nerdygadgets.stockitems where StockItemID = ?;";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+
+    return $Result;
+}
