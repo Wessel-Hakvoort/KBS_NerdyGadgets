@@ -89,7 +89,8 @@ ul#ul-class-navigation li {
     position: fixed;
     top: 0;
     background-color: #086972;
-    width: 100%;
+    width: 110%;
+    margin: 0;
     height: 200px;
     z-index: 1;
     border-bottom: 4px solid #e6e6e6;

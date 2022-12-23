@@ -45,6 +45,7 @@ if (array_sum($cart) > 0) {
     <?php
     $i = 0;
     foreach ($cart
+
              as $key => $value) {
     if ($key == "") {
         continue;
@@ -168,6 +169,7 @@ if (array_sum($cart) > 0) {
         </div>
         <?php
     }
-
+?>
+    <?php
     include __DIR__ . "/footer.php";
     ?>
