@@ -80,14 +80,18 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
             <?php
         }
         ?>
-        
+
         <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
         <h2 class="StockItemNameViewSize StockItemName">
             <?php print $StockItem['StockItemName']; ?>
             <div class="QuantityText">
                 <?php
-                    $aantal = (int) filter_var($StockItem["QuantityOnHand"],FILTER_SANITIZE_NUMBER_INT);
+                $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'VOORRAAD'");
+                if (mysqli_num_rows($result) > 0) {
+
+                    $aantal = (int)filter_var($StockItem["QuantityOnHand"], FILTER_SANITIZE_NUMBER_INT);
                     print getVoorraadTekst($aantal);
+                }
                 ?></div>
         </h2>
 
@@ -116,7 +120,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                                 print "<h5> Toegevoegd aan <a href='accountverlanglijstje.php' style='color: #0b95a2'><u>verlanglijstje</u></a>!</h5>";
                             } else {
                                 print "<h5>Er is iets fout gegaan!</h5>";
-                                }
+                            }
                         }
                     } else {
                         print "<h5 style='position: absolute; top:5vh; width: 15vw; right: 0vh;'><a href='login.php' style='color: #0b95a2'><u>Log eerst in</u></a> om een item aan uw verlanglijstje toe te voegen!</h5>";
@@ -188,11 +192,18 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
             <?php } ?>
             </table><?php
         } else { ?>
-                <p><?php print $StockItem['CustomFields']; ?>.</p>
-                <?php
-            }
-            ?>
-        </div>
+            <p><?php print $StockItem['CustomFields']; ?>.</p>
+            <?php
+        }
+        ?>
+    </div>
+
+<!--    conversiemaatregel check aan/uit-->
+    <?php
+    $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'AANBEVOLEN'");
+    if (mysqli_num_rows($result) > 0) {
+        ?>
+        <!--        conversiemaatregel aanbevolen producten-->
         <div style="margin-top: 380px">
             <h1 class="StockItemNameViewSize StockItemName">Aanbevolen producten:</h1>
             <hr>
@@ -205,7 +216,7 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                 $StockItem = getStockItem($ItemID["StockItemID"], $databaseConnection);
                 $StockItemImage = getStockItemImage($ItemID['StockItemID'], $databaseConnection);
                 ?>
-                <a  href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
+                <a href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
                     <div style="width: 20rem; float: left;">
                         <p style="font-size: 30px; color: #053d42;">
                             <?php print $StockItem["StockItemName"]; ?>
@@ -262,15 +273,17 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                         ?>
                         <p class="StockItemPriceText">
                             <b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b>
-                        <button class="button-37" href="view.php?id=<?php print $StockItem['StockItemID']; ?>">
-                            Naar product gaan
-                        </button>
+                            <button class="button-37" href="view.php?id=<?php print $StockItem['StockItemID']; ?>">
+                                Naar product gaan
+                            </button>
                         </p>
                     </div>
                 </a>
             <?php } ?>
         </div>
         <?php
+    }
+
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>

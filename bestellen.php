@@ -45,29 +45,35 @@ if (array_sum($cart) > 0) {
                             print "- " . $naam['StockItemName'];
                             print " [" . $cart[$key];
                             print "x] " ?>
-                            <br><br><hr>
+                            <br><br>
+                            <hr>
                         <?php } ?></h4>
-                <?php
-                if (empty($_POST['kortingscode'])) {
-                ?>
-                    <form action="winkelmand.php" method="POST">
-                        <b><label for="kortingscode">Heeft u een kortingscode?</label></b>
-                        <input type="text" name="kortingscode" id="kortingscode" pattern="20KORTING" required>
-                        <br><br><button class="button-37" type="submit" name="Toepassen" value="Toepassen"
-                                formmethod="post">
-                            Kortingscode toepasssen
-                        </button>
-                        <?php
+                    <?php
+                    $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'KORTING'");
+                    if (mysqli_num_rows($result) > 0) {
+                        if (empty($_POST['kortingscode'])) {
+                            ?>
+                            <form action="winkelmand.php" method="POST">
+                            <b><label for="kortingscode">Heeft u een kortingscode?</label></b>
+                            <input type="text" name="kortingscode" id="kortingscode" pattern="20KORTING" required>
+                            <br><br>
+                            <button class="button-37" type="submit" name="Toepassen" value="Toepassen"
+                                    formmethod="post">
+                                Kortingscode toepasssen
+                            </button>
+                            <?php
                         }
                         if (isset($_POST['kortingscode'])) {
                             print "<h5>Uw kortingscode is succesvol toegevoegd.";
                             print "</h5><br>";
-                            print "<h5>Kortingscode: " .$_POST['kortingscode'];
+                            print "<h5>Kortingscode: " . $_POST['kortingscode'];
                             print "</h5>";
                         }
                         ?>
 
-                    </form><hr>
+                        </form>
+                        <hr>
+                    <?php } ?>
                     <h4>Totaalprijs: <?php print "€" . totaal_prijs($cart, $databaseConnection); ?></h4>
                 </div>
 
@@ -99,9 +105,15 @@ if (array_sum($cart) > 0) {
                             </select>
                             <br>
                             <br>
-                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING" value="<?php if (isset($_POST['kortingscode'])) {
-                                print $_POST['kortingscode'];
-                            } ?>"/>
+                            <?php
+                            $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'KORTING'");
+                            if (mysqli_num_rows($result) > 0) {
+                            ?>
+                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING"
+                                   value="<?php if (isset($_POST['kortingscode'])) {
+                                       print $_POST['kortingscode'];
+                                   }
+                                    ?>"/> <?php } ?>
                             <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
                                     formmethod="post">
                                 Doorgaan naar betalen
@@ -113,12 +125,21 @@ if (array_sum($cart) > 0) {
                     ?>
                     <form method="post" action="bestelconfirmuser.php">
                         <h3>
-                            Naam: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "CustomerName"); ?>" name="CustomerName" readonly required/><br>
-                            Mail: <input type="email" value="<?php gegevensOphalenUser($databaseConnection, "Mail"); ?>" name="Mail" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            Naam: <input type="text"
+                                         value="<?php gegevensOphalenUser($databaseConnection, "CustomerName"); ?>"
+                                         name="CustomerName" readonly required/><br>
+                            Mail: <input type="email" value="<?php gegevensOphalenUser($databaseConnection, "Mail"); ?>"
+                                         name="Mail" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                          required/><br>
-                            Telefoonnummer: <input type="tel" value="<?php gegevensOphalenUser($databaseConnection, "PhoneNumber"); ?>" name="PhoneNumber" pattern="[0-9]{10}" readonly required/><br>
-                            Adres + Huisnummer: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "Straatnaam"); ?>" name="DeliveryAddressLine2" readonly required/><br>
-                            Woonplaats: <input type="text" value="<?php gegevensOphalenUser($databaseConnection, "Woonplaats"); ?>" name="PostalAddressLine2" readonly required/><br>
+                            Telefoonnummer: <input type="tel"
+                                                   value="<?php gegevensOphalenUser($databaseConnection, "PhoneNumber"); ?>"
+                                                   name="PhoneNumber" pattern="[0-9]{10}" readonly required/><br>
+                            Adres + Huisnummer: <input type="text"
+                                                       value="<?php gegevensOphalenUser($databaseConnection, "Straatnaam"); ?>"
+                                                       name="DeliveryAddressLine2" readonly required/><br>
+                            Woonplaats: <input type="text"
+                                               value="<?php gegevensOphalenUser($databaseConnection, "Woonplaats"); ?>"
+                                               name="PostalAddressLine2" readonly required/><br>
                             <label for="PaymentMethod">Selecteer een betaalmethode</label>
                             <select name="PaymentMethod" id="PaymentMethod" required>
                                 <option value="iDeal">iDeal</option>
@@ -128,9 +149,17 @@ if (array_sum($cart) > 0) {
                             </select>
                             <br>
                             <br>
-                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING" value="<?php if (isset($_POST['kortingscode'])) {
-                                print $_POST['kortingscode'];
-                            } ?>"/>
+
+
+                            <?php
+                            $result = mysqli_query($databaseConnection, "SELECT status FROM conversiemaatregelen WHERE conversiemaatregel = 'KORTING'");
+                            if (mysqli_num_rows($result) > 0) {
+                            ?>
+                            <input type="hidden" name="kortingscode" id="kortingscode" pattern="20KORTING"
+                                   value="<?php if (isset($_POST['kortingscode'])) {
+                                       print $_POST['kortingscode'];
+                                   }
+                                    ?>"/> <?php } ?>
                             <button class="buttonNerd" type="submit" name="toevoegen" value="Toevoegen"
                                     formmethod="post">
                                 Doorgaan naar betalen
