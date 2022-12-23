@@ -21,13 +21,19 @@ if (array_sum($cart) > 0) {
     if (isset($_POST["toevoegen"])) {
         $userid = $_SESSION["id"];
         $CustomerName = $_POST["CustomerName"];
+        $totaalprijs = totaal_prijs($cart, $databaseConnection);
         $gegevens["CustomerName"] = isset($_POST["CustomerName"]) ? $_POST["CustomerName"] : "";
         $gegevens["DeliveryAddressLine2"] = isset($_POST["DeliveryAddressLine2"]) ? $_POST["DeliveryAddressLine2"] : "";
         $gegevens["PostalAddressLine2"] = isset($_POST["PostalAddressLine2"]) ? $_POST["PostalAddressLine2"] : "";
         $gegevens["Mail"] = isset($_POST["Mail"]) ? $_POST["Mail"] : "";
         $gegevens["PhoneNumber"] = isset($_POST["PhoneNumber"]) ? $_POST["PhoneNumber"] : "";
-        voegOrderToe($databaseConnection, totaal_prijs($cart, $databaseConnection));
+        voegOrderToe($databaseConnection, $totaalprijs);
         voegOrderLineToe($databaseConnection);
+        ?>
+        <script>
+            window.open("https://www.ideal.nl/demo/qr/?app=ideal", "_blank");
+        </script>
+            <?php
     }
     ?>
 

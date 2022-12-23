@@ -24,6 +24,11 @@ if (isset($_POST["toevoegen"])) {
     $gegevens = klantGegevensOrderToevoegen($gegevens);
     voegOrderToe($databaseConnection, totaal_prijs($cart, $databaseConnection));
     voegOrderLineToe($databaseConnection);
+    ?>
+    <script>
+            window.open("https://www.ideal.nl/demo/qr/?app=ideal", "_blank");
+    </script>
+    <?php
     //mail($_POST["Mail"], "Bestelling", "Uw bestelling bij nerdygadgets is geplaatst! Uw bestelnummer is:" . LaatsteOrderNummer($databaseConnection));
 }
 

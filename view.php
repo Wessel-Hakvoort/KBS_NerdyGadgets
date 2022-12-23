@@ -94,11 +94,12 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
         <div id="StockItemHeaderLeft">
             <div>
                 <form method="post">
-                    <button class="btn btn-outline-secondary" type="submit"
+                    <button style=" background:transparent; border:none;outline:none;display:block;" type="submit"
                             name="submitVerlanglijstje">
-                        <i class="fa-solid fa-heart" style="color: red;"></i>
+                        <i class="fa-solid fa-border fa-heart" style="color: red; font-size: 35px; --fa-border-padding: 4px; --fa-border-color:#d3d3d3;"></i>
                     </button>
                 </form>
+                <br>
                 <?php
                 if (isset($_SESSION["loggedin"])) {
                     if ($_SESSION["loggedin"] == TRUE) {
@@ -157,8 +158,6 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
     <div id="StockItemDescription">
         <h3>Artikel beschrijving</h3>
         <p><?php print $StockItem['SearchDetails']; ?></p>
-    </div>
-    <div id="StockItemSpecifications">
         <h3>Artikel specificaties</h3>
         <?php
         $CustomFields = json_decode($StockItem['CustomFields'], true);
@@ -194,8 +193,10 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
             }
             ?>
         </div>
-        <hr>
-        <div>
+        <div style="margin-top: 380px">
+            <h1 class="StockItemNameViewSize StockItemName">Aanbevolen producten:</h1>
+            <hr>
+            <br>
             <?php
             $i = 0;
             foreach ($StockGroupsItems as $key => $ItemID) {
@@ -206,9 +207,9 @@ $StockGroupsItems = getStockItemStockGroups($StockGroups, $databaseConnection);
                 ?>
                 <a  href='view.php?id=<?php print $StockItem['StockItemID']; ?>'>
                     <div style="width: 20rem; float: left;">
-                        <h2 class="StockItemNameViewSize StockItemName">
+                        <p style="font-size: 30px; color: #053d42;">
                             <?php print $StockItem["StockItemName"]; ?>
-                        </h2>
+                        </p>
                         <?php
                         if (isset($StockItemImage)) {
                             // één plaatje laten zien

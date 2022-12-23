@@ -5,7 +5,7 @@ function getVoorraadTekst($actueleVoorraad)
     if ($actueleVoorraad < 1000) {
         echo "<p style='color: red'>Wees snel! nog maar $actueleVoorraad beschikbaar!</p>";
     } else {
-        echo "Ruime voorraad beschikbaar.";
+        echo "<p>Ruime voorraad beschikbaar.</p>";
 
     }
 }
